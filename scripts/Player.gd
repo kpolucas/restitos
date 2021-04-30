@@ -1,7 +1,8 @@
 extends KinematicBody2D
 
 # fuente https://www.youtube.com/watch?v=xFEKIWpd0sU
-const UP = Vector2(0,-1) 
+const UP = Vector2(0,-1)
+const BACKDASH = Vector2(-1000,-300) 
 const GRAVITY = 60
 const MAXFALLSPEED = 200
 const MAXSPEED = 200
@@ -32,7 +33,7 @@ func _physics_process(delta):
 		$Sprite.scale.x = -2
 		
 	
-	if Input.is_action_pressed("right"): # 
+	if Input.is_action_pressed("right"): 
 		motion.x += ACCEL
 		facing_right = true
 	elif Input.is_action_pressed("left"):
@@ -45,6 +46,12 @@ func _physics_process(delta):
 	if is_on_floor():
 		if Input.is_action_just_pressed("jump"):
 			motion.y = -JUMPFORCE
+		if Input.is_action_just_pressed("backdash"):
+			if facing_right:
+				motion.x = BACKDASH.x
+			else:
+				motion.x = -BACKDASH.x
+			motion.y = BACKDASH.y
 	
 		
 	motion = move_and_slide(motion,UP) 
