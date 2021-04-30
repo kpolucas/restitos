@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/player/viking2.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Player.gd" type="Script" id=2]
+[ext_resource path="res://assets/floor/floor.png" type="Texture" id=3]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 13.9806
+height = 10.8022
+
+[sub_resource type="Animation" id=3]
+resource_name = "idle"
+length = 1.2
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6 ]
+}
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 160.028, 30.7568 )
+
+[node name="World" type="Node2D"]
+
+[node name="Player" type="KinematicBody2D" parent="."]
+position = Vector2( 208.025, 27.6179 )
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="Player"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+vframes = 6
+hframes = 9
+frame = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2( 4.12035, 14.5967 )
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+anims/idle = SubResource( 3 )
+
+[node name="Piso" type="StaticBody2D" parent="."]
+position = Vector2( 216.488, 177.063 )
+
+[node name="Sprite" type="Sprite" parent="Piso"]
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Piso"]
+shape = SubResource( 2 )
