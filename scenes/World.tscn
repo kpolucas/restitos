@@ -11,7 +11,7 @@ height = 10.8022
 
 [sub_resource type="Animation" id=2]
 resource_name = "attack"
-length = 0.8
+length = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -60,7 +60,7 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 vframes = 6
 hframes = 9
-frame = 31
+frame = 27
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2( 4.12035, 14.5967 )
@@ -89,3 +89,4 @@ texture = ExtResource( 4 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="dummy"]
 position = Vector2( -7.12723, 13.1407 )
 shape = SubResource( 5 )
+[connection signal="animation_finished" from="Player/AnimationPlayer" to="Player" method="_on_AnimationPlayer_animation_finished"]

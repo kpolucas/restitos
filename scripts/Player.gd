@@ -62,3 +62,8 @@ func _animation():
 	else:
 		$Sprite.scale.x = -2
 		
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "attack":
+		$AnimationPlayer.play("idle")
