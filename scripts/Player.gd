@@ -2,13 +2,13 @@ extends KinematicBody2D
 
 # fuente https://www.youtube.com/watch?v=xFEKIWpd0sU
 const UP = Vector2(0,-1)
-const BACKDASH = Vector2(-1000,-300) 
-const GRAVITY = 60
-const MAXFALLSPEED = 200
-const MAXSPEED = 200
-const JUMPFORCE = 600
-const ACCEL = 20
-const STOPFRICTION = 0.2
+export var BACKDASH = Vector2(-1000,-300) 
+export var GRAVITY = 60
+export var MAXFALLSPEED = 200
+export var MAXSPEED = 200
+export var JUMPFORCE = 600
+export var ACCEL = 20
+export var STOPFRICTION = 0.2
 
 var motion = Vector2()
 var facing_right = true
