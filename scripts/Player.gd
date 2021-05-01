@@ -67,3 +67,7 @@ func _animation():
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "attack":
 		$AnimationPlayer.play("idle")
+
+func _on_SwordArea_body_entered(body):
+	#if body.is_in_group("ble"):
+	body.OnHit()
