@@ -56,6 +56,9 @@ func _attack():
 func _animation():
 	if Input.is_action_just_pressed("attack"):
 		$AnimationPlayer.play("attack")
+		
+	if Input.is_action_just_pressed("block"):
+		$AnimationPlayer.play("block")
 	
 	if facing_right:
 		$Sprite.scale.x = 2
@@ -67,6 +70,8 @@ func OnHit():
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "attack":
+		$AnimationPlayer.play("idle")
+	if anim_name == "block":
 		$AnimationPlayer.play("idle")
 
 func _on_SwordArea_body_entered(body):
