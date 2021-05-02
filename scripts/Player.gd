@@ -62,12 +62,13 @@ func _animation():
 	else:
 		$Sprite.scale.x = -2
 		
-
+func OnHit():
+	print("enemy hit player")
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "attack":
 		$AnimationPlayer.play("idle")
 
 func _on_SwordArea_body_entered(body):
-	#if body.is_in_group("ble"):
-	body.OnHit()
+	if body.is_in_group("enemies"): # Revisar todo lo relacionado con grupos-.
+		body.OnHit()

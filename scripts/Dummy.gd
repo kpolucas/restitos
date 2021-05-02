@@ -1,4 +1,4 @@
 extends KinematicBody2D
 
 func OnHit():
-	print("ouch")
+	print("player hit enemy")

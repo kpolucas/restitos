@@ -7,7 +7,9 @@
 radius = 19.8167
 height = 0.527313
 
-[node name="Dummy" type="KinematicBody2D"]
+[node name="Dummy" type="KinematicBody2D" groups=[
+"enemies",
+]]
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]

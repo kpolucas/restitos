@@ -1,17 +1,18 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://assets/player/viking2.png" type="Texture" id=2]
+[ext_resource path="res://assets/dummy-with-attack/viking2.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Dummy-with-attack.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3.41805, 8.27933 )
+extents = Vector2( 3.30845, 8.73632 )
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 17.1081
+radius = 9.53041
 height = 0.0
 
 [sub_resource type="Animation" id=3]
-length = 0.7
+length = 2.0
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -19,10 +20,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 27, 28, 29, 30, 31 ]
+"values": [ 27, 28, 29, 30, 31, 32, 33 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite/SwordArea/CollisionShape2D:disabled")
@@ -37,50 +38,30 @@ tracks/1/keys = {
 "values": [ true, false, true ]
 }
 
-[sub_resource type="Animation" id=4]
-length = 1.2
-loop = true
-step = 0.2
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6 ]
-}
-
-[node name="Player" type="KinematicBody2D" groups=[
-"players",
+[node name="Dummy-with-attack" type="KinematicBody2D" groups=[
+"enemies",
 ]]
-position = Vector2( 208.025, 27.6179 )
-script = ExtResource( 1 )
+scale = Vector2( 2, 2 )
+script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 2, 2 )
-texture = ExtResource( 2 )
+texture = ExtResource( 1 )
 hframes = 9
 vframes = 6
-frame = 31
+frame = 27
 
 [node name="SwordArea" type="Area2D" parent="Sprite"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/SwordArea"]
-position = Vector2( 12.768, 7.71692 )
+position = Vector2( 13.2433, 7.41624 )
 shape = SubResource( 1 )
 disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 16 )
+position = Vector2( 0.529732, 6.62164 )
 shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 3 )
-anims/idle = SubResource( 4 )
 
 [connection signal="body_entered" from="Sprite/SwordArea" to="." method="_on_SwordArea_body_entered"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
