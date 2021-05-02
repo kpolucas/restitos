@@ -12,6 +12,8 @@ export var STOPFRICTION = 0.2
 
 var motion = Vector2()
 var facing_right = true
+var isBlocking = false
+var isAttacking = false
 
 
 func _ready():
@@ -20,13 +22,13 @@ func _ready():
 func _physics_process(delta):
 	_movement()
 	_attack()
+	_block()
 	_animation()
 	
 func _movement():
 	motion.y += GRAVITY
 	if motion.y > MAXFALLSPEED:
-		motion.y = MAXFALLSPEED
-	
+		motion.y = MAXFALLSPEED	
 	
 	if Input.is_action_pressed("right"): 
 		motion.x += ACCEL
@@ -48,10 +50,18 @@ func _movement():
 			motion.x = -BACKDASH.x
 		motion.y = BACKDASH.y
 			
-	motion = move_and_slide(motion,UP) 
+	if !isAttacking && !isBlocking:
+		motion = move_and_slide(motion,UP) 
 
 func _attack():
-	pass
+	if Input.is_action_just_pressed("attack"):
+		isAttacking = true
+	
+func _block():
+	if Input.is_action_just_pressed("block"):
+		isBlocking = true
+	if Input.is_action_just_released("block"):
+		isBlocking = false
 
 func _animation():
 	if Input.is_action_just_pressed("attack"):
@@ -59,6 +69,8 @@ func _animation():
 		
 	if Input.is_action_just_pressed("block"):
 		$AnimationPlayer.play("block")
+	if Input.is_action_just_released("block"):
+		$AnimationPlayer.play("idle")
 	
 	if facing_right:
 		$Sprite.scale.x = 2
@@ -71,8 +83,7 @@ func OnHit():
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "attack":
 		$AnimationPlayer.play("idle")
-	if anim_name == "block":
-		$AnimationPlayer.play("idle")
+		isAttacking = false
 
 func _on_SwordArea_body_entered(body):
 	if body.is_in_group("enemies"): # Revisar todo lo relacionado con grupos-.
