@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Dummy.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/floor/floor.png" type="Texture" id=3]
+[ext_resource path="res://sprites/floor/floor.png" type="Texture" id=3]
 [ext_resource path="res://scenes/Dummy-with-attack.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
