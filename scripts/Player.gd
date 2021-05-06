@@ -15,15 +15,12 @@ var facing_right = true
 var isBlocking = false
 var isAttacking = false
 
-
-func _ready():
-	$AnimationPlayer.play("idle") # Replace with function body.
 # run every frame
 func _physics_process(delta):
 	_movement()
 	_attack()
 	_block()
-	_animation()
+	_direction()
 	
 func _movement():
 	motion.y += GRAVITY
@@ -63,15 +60,7 @@ func _block():
 	if Input.is_action_just_released("block"):
 		isBlocking = false
 
-func _animation():
-	if Input.is_action_just_pressed("attack"):
-		$AnimationPlayer.play("attack")
-		
-	if Input.is_action_just_pressed("block"):
-		$AnimationPlayer.play("block")
-	if Input.is_action_just_released("block"):
-		$AnimationPlayer.play("idle")
-	
+func _direction():
 	if facing_right:
 		$Sprite.scale.x = 2
 	else:
@@ -82,7 +71,6 @@ func OnHit():
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "attack":
-		$AnimationPlayer.play("idle")
 		isAttacking = false
 
 func _on_SwordArea_body_entered(body):
