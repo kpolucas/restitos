@@ -75,4 +75,4 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 func _on_SwordArea_body_entered(body):
 	if body.is_in_group("enemies"): # Revisar todo lo relacionado con grupos-.
-		body.OnHit()
+		body.OnHit(25)
