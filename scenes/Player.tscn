@@ -100,5 +100,5 @@ anims/block = SubResource( 4 )
 anims/idle = SubResource( 5 )
 script = ExtResource( 3 )
 [connection signal="body_entered" from="Sprite/SwordArea" to="." method="_on_SwordArea_body_entered"]
-[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="AnimationPlayer" method="_on_AnimationPlayer_animation_finished"]

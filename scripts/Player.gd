@@ -18,9 +18,9 @@ var isAttacking = false
 # run every frame
 func _physics_process(delta):
 	_movement()
+	_direction()
 	_attack()
 	_block()
-	_direction()
 	
 func _movement():
 	motion.y += GRAVITY

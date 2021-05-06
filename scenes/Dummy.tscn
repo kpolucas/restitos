@@ -25,10 +25,10 @@ position = Vector2( -7.12723, 13.1407 )
 shape = SubResource( 1 )
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-margin_left = -44.6288
-margin_top = -28.378
-margin_right = 36.3712
-margin_bottom = -14.378
+margin_left = -24.8065
+margin_top = -26.0
+margin_right = 16.9546
+margin_bottom = -12.0
 custom_styles/fg = SubResource( 2 )
 value = 100.0
 script = ExtResource( 3 )
