@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Dummy.tscn" type="PackedScene" id=2]
@@ -8,9 +8,6 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 160.028, 30.7568 )
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.54902, 0, 0, 1 )
 
 [node name="World" type="Node2D"]
 
@@ -36,14 +33,3 @@ texture = ExtResource( 3 )
 shape = SubResource( 1 )
 
 [node name="Hud" parent="." instance=ExtResource( 5 )]
-
-[node name="ProgressBar" type="ProgressBar" parent="Hud"]
-margin_left = 16.0362
-margin_top = 14.2544
-margin_right = 118.036
-margin_bottom = 28.2544
-custom_styles/fg = SubResource( 2 )
-value = 100.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
