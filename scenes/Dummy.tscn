@@ -1,15 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/Dummy.gd" type="Script" id=1]
 [ext_resource path="res://sprites/dummy/sparring.png" type="Texture" id=2]
-[ext_resource path="res://scripts/ProgressBar.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 19.8167
 height = 0.527313
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.54902, 0, 0, 1 )
 
 [node name="Dummy" type="KinematicBody2D" groups=[
 "enemies",
@@ -23,16 +19,3 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -7.12723, 13.1407 )
 shape = SubResource( 1 )
-
-[node name="ProgressBar" type="ProgressBar" parent="."]
-margin_left = -24.8065
-margin_top = -26.0
-margin_right = 16.9546
-margin_bottom = -12.0
-custom_styles/fg = SubResource( 2 )
-value = 100.0
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-[connection signal="damaged" from="." to="ProgressBar" method="_on_Dummy_damaged"]

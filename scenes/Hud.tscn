@@ -26,7 +26,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="BossHealth" type="ProgressBar" parent="."]
 margin_left = 144.0
 margin_top = 302.0
 margin_right = 427.0
@@ -37,7 +37,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="ProgressBar"]
+[node name="TextureRect" type="TextureRect" parent="BossHealth"]
 margin_left = -30.7204
 margin_top = -11.7824
 margin_right = 9.27963
