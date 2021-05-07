@@ -10,13 +10,12 @@ config_version=4
 
 _global_script_classes=[  ]
 _global_script_class_icons={
-
 }
 
 [application]
 
 config/name="Restitos"
-run/main_scene="res://scenes/World.tscn"
+run/main_scene="res://Scenes/World.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -71,4 +70,5 @@ block={
 
 [rendering]
 
+environment/default_clear_color=Color( 0.247059, 0.443137, 0.52549, 1 )
 environment/default_environment="res://default_env.tres"
