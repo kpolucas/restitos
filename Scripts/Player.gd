@@ -1,28 +1,33 @@
 extends KinematicBody2D
 
-# Revisar http://kidscancode.org/blog/2018/01/godot3_inheritance/
-# fuente https://www.youtube.com/watch?v=xFEKIWpd0sU
-const UP = Vector2(0,-1)
-export var BACKDASH = Vector2(-1000,-300) 
-export var GRAVITY = 60
-export var MAXFALLSPEED = 200
-export var MAXSPEED = 200
-export var JUMPFORCE = 600
-export var ACCEL = 20
-export var STOPFRICTION = 0.2
-
 var motion = Vector2()
 var facing_right = true
-var isBlocking = false
-var isAttacking = false
 
+# Movement
+export var BACKDASH = Vector2(-1000,-300) 
+export var GRAVITY = 100
+export var MAXFALLSPEED = 500
+export var MAXSPEED = 120
+export var JUMPFORCE = 700
+export var ACCEL = 20
+export var STOPFRICTION = 0.2
+# Attack
+var attack123 = 3
+
+
+onready var anim = $AnimationPlayer
+
+
+func _ready():
+	anim.play("idle")
 # run every frame
 func _physics_process(delta):
 	_movement()
 	_direction()
 	_attack()
 	_block()
-	
+
+
 func _movement():
 	motion.y += GRAVITY
 	if motion.y > MAXFALLSPEED:
@@ -40,33 +45,41 @@ func _movement():
 	
 	if Input.is_action_just_pressed("jump") && is_on_floor():
 		motion.y = -JUMPFORCE
-		
 	if Input.is_action_just_pressed("backdash") && is_on_floor():
-		if facing_right:
-			motion.x = BACKDASH.x
-		else:
-			motion.x = -BACKDASH.x
+		motion.x = BACKDASH.x if facing_right else -BACKDASH.x
 		motion.y = BACKDASH.y
+		anim.play("backdash")
 			
-	if !isAttacking && !isBlocking:
-		motion = move_and_slide(motion,UP) 
+	motion = move_and_slide(motion,Vector2.UP) 
+
+func _direction():
+	$PlayerSprite.scale.x = -1 if facing_right else 1
 
 func _attack():
+	
 	if Input.is_action_just_pressed("attack"):
-		isAttacking = true
+		if $AttackRestart.time_left == 0:
+			$AttackRestart.start()
+		match attack123:
+			1:
+				anim.play("attack123-1")
+			2:
+				anim.play("attack123-2")
+			3:
+				anim.play("attack123-3")
+		attack123 -= 1
+		
 	
 func _block():
 	if Input.is_action_just_pressed("block"):
-		isBlocking = true
+		anim.play("block")
 	if Input.is_action_just_released("block"):
-		isBlocking = false
+		anim.play("idle")
+	#anim.play("parry")
 
-func _direction():
-	if facing_right:
-		$Sprite.scale.x = 1
-	else:
-		$Sprite.scale.x = -1
+func _on_AttackRestart_timeout():
+	attack123 = 3
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name == "attack":
-		isAttacking = false
+	if anim_name != "block":
+		anim.play("idle")
