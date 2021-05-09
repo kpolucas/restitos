@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Sprites/Floor/Floor.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Boss.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 160.028, 30.7568 )
@@ -12,6 +13,9 @@ extents = Vector2( 160.028, 30.7568 )
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
 position = Vector2( 192.744, 79.038 )
+
+[node name="Boss" parent="World" instance=ExtResource( 3 )]
+position = Vector2( 339.028, 86.876 )
 
 [node name="Piso" type="StaticBody2D" parent="World"]
 position = Vector2( 216.488, 177.063 )

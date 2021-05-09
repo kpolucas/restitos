@@ -3,6 +3,9 @@ extends KinematicBody2D
 var motion = Vector2()
 var facing_right = true
 
+#health
+var health = 100
+
 # Movement
 export var BACKDASH = Vector2(-1000,-300) 
 export var GRAVITY = 100
@@ -13,6 +16,8 @@ export var ACCEL = 20
 export var STOPFRICTION = 0.2
 # Attack
 var attack123 = 3
+# Block
+export var canParry = false
 
 
 onready var anim = $AnimationPlayer
@@ -20,7 +25,7 @@ onready var anim = $AnimationPlayer
 
 func _ready():
 	anim.play("idle")
-# run every frame
+
 func _physics_process(delta):
 	_movement()
 	_direction()
@@ -58,14 +63,13 @@ func _direction():
 func _attack():
 	
 	if Input.is_action_just_pressed("attack"):
-		if $AttackRestart.time_left == 0:
-			$AttackRestart.start()
+		$AttackRestart.start()
 		match attack123:
-			1:
+			3:
 				anim.play("attack123-1")
 			2:
 				anim.play("attack123-2")
-			3:
+			1:
 				anim.play("attack123-3")
 		attack123 -= 1
 		
@@ -74,6 +78,7 @@ func _block():
 	if Input.is_action_just_pressed("block"):
 		anim.play("block")
 	if Input.is_action_just_released("block"):
+		canParry = false
 		anim.play("idle")
 	#anim.play("parry")
 
@@ -83,3 +88,14 @@ func _on_AttackRestart_timeout():
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name != "block":
 		anim.play("idle")
+
+func OnHit(damage):
+	if canParry:
+		anim.play("parry")
+		return
+		
+	if Input.is_action_pressed("block"):
+		damage = damage / 2
+		
+	health -= damage
+	print("Player health: " + str(health))
