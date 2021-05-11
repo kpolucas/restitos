@@ -1,14 +1,13 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/Player.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/PlayerAttackCollisionShape.gd" type="Script" id=3]
 
-[sub_resource type="RectangleShape2D" id=9]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.25031, 7 )
 
-[sub_resource type="Animation" id=1]
-resource_name = "attack123-1"
+[sub_resource type="Animation" id=2]
 tracks/0/type = "value"
 tracks/0/path = NodePath("PlayerSprite:frame")
 tracks/0/interp = 1
@@ -46,8 +45,7 @@ tracks/2/keys = {
 "values": [ Vector2( -32.0454, -20.216 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "attack123-2"
+[sub_resource type="Animation" id=3]
 tracks/0/type = "value"
 tracks/0/path = NodePath("PlayerSprite:frame")
 tracks/0/interp = 1
@@ -85,8 +83,7 @@ tracks/2/keys = {
 "values": [ Vector2( -39.8237, -38.2952 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "attack123-3"
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath("PlayerSprite:frame")
 tracks/0/interp = 1
@@ -124,8 +121,7 @@ tracks/2/keys = {
 "values": [ Vector2( -29.3125, -19.1648 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "backdash"
+[sub_resource type="Animation" id=5]
 length = 0.35
 tracks/0/type = "value"
 tracks/0/path = NodePath("PlayerSprite:frame")
@@ -140,8 +136,7 @@ tracks/0/keys = {
 "values": [ 5 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "block"
+[sub_resource type="Animation" id=6]
 tracks/0/type = "value"
 tracks/0/path = NodePath("PlayerSprite:frame")
 tracks/0/interp = 1
@@ -167,7 +162,7 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 tracks/0/type = "value"
 tracks/0/path = NodePath("PlayerSprite:frame")
 tracks/0/interp = 1
@@ -181,8 +176,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "parry"
+[sub_resource type="Animation" id=8]
 tracks/0/type = "value"
 tracks/0/path = NodePath("PlayerSprite:frame")
 tracks/0/interp = 1
@@ -196,7 +190,73 @@ tracks/0/keys = {
 "values": [ 6 ]
 }
 
-[sub_resource type="CapsuleShape2D" id=8]
+[sub_resource type="Animation" id=9]
+resource_name = "superattackcharge"
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 8 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PlayerSprite/Area2D/PlayerAttackCollisionShape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "superattackrelease"
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PlayerSprite/Area2D/PlayerAttackCollisionShape:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -41.5055, 5.43133 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("PlayerSprite/Area2D/PlayerAttackCollisionShape:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="CapsuleShape2D" id=11]
 radius = 14.7973
 height = 79.9951
 
@@ -205,31 +265,33 @@ script = ExtResource( 1 )
 
 [node name="PlayerSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
-vframes = 2
+vframes = 3
 hframes = 4
-frame = 4
 
 [node name="Area2D" type="Area2D" parent="PlayerSprite"]
 
 [node name="PlayerAttackCollisionShape" type="CollisionShape2D" parent="PlayerSprite/Area2D"]
-position = Vector2( -29.3125, -19.1648 )
-shape = SubResource( 9 )
+position = Vector2( -41.5055, 5.43133 )
+shape = SubResource( 1 )
 disabled = true
 script = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/attack123-1 = SubResource( 1 )
-anims/attack123-2 = SubResource( 2 )
-anims/attack123-3 = SubResource( 3 )
-anims/backdash = SubResource( 4 )
-anims/block = SubResource( 5 )
-anims/idle = SubResource( 6 )
-anims/parry = SubResource( 7 )
+anims/attack123-1 = SubResource( 2 )
+anims/attack123-2 = SubResource( 3 )
+anims/attack123-3 = SubResource( 4 )
+anims/backdash = SubResource( 5 )
+anims/block = SubResource( 6 )
+anims/idle = SubResource( 7 )
+anims/parry = SubResource( 8 )
+anims/superattackcharge = SubResource( 9 )
+anims/superattackrelease = SubResource( 10 )
 
 [node name="PlayerCollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource( 8 )
+shape = SubResource( 11 )
 
 [node name="AttackRestart" type="Timer" parent="."]
 [connection signal="body_entered" from="PlayerSprite/Area2D" to="PlayerSprite/Area2D/PlayerAttackCollisionShape" method="_on_Area2D_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="PlayerSprite/Area2D/PlayerAttackCollisionShape" method="_on_AnimationPlayer_animation_started"]
 [connection signal="timeout" from="AttackRestart" to="." method="_on_AttackRestart_timeout"]

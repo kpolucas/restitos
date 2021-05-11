@@ -30,6 +30,7 @@ func _physics_process(delta):
 	_movement()
 	_direction()
 	_attack()
+	_superattack()
 	_block()
 
 
@@ -73,6 +74,11 @@ func _attack():
 				anim.play("attack123-3")
 		attack123 -= 1
 		
+func _superattack():
+	if Input.is_action_just_pressed("superattack"):
+		anim.play("superattackcharge")
+	if Input.is_action_just_released("superattack"):
+		anim.play("superattackrelease")
 	
 func _block():
 	if Input.is_action_just_pressed("block"):
@@ -80,13 +86,12 @@ func _block():
 	if Input.is_action_just_released("block"):
 		canParry = false
 		anim.play("idle")
-	#anim.play("parry")
 
 func _on_AttackRestart_timeout():
 	attack123 = 3
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name != "block":
+	if anim_name != "block" && anim_name != "superattackcharge":
 		anim.play("idle")
 
 func OnHit(damage):
