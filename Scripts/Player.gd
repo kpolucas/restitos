@@ -56,15 +56,19 @@ func _movement():
 		motion.y = BACKDASH.y
 		anim.play("backdash")
 			
-	motion = move_and_slide(motion,Vector2.UP) 
+	if anim.current_animation != "idle" && anim.current_animation != "backdash": # Feo, ver si existe una mejor
+		motion.x = 0
+	motion = move_and_slide(motion,Vector2.UP)
 
 func _direction():
 	$PlayerSprite.scale.x = -1 if facing_right else 1
+	$PlayerSprite.position.x = 16 if facing_right else -16 # Centro el placeholder
 
 func _attack():
 	
 	if Input.is_action_just_pressed("attack"):
-		$AttackRestart.start()
+		if attack123 >= 0:
+			$AttackRestart.start()
 		match attack123:
 			3:
 				anim.play("attack123-1")
@@ -79,6 +83,7 @@ func _superattack():
 		anim.play("superattackcharge")
 	if Input.is_action_just_released("superattack"):
 		anim.play("superattackrelease")
+		#motion = move_and_slide(Vector2(1600,-200),Vector2.UP)
 	
 func _block():
 	if Input.is_action_just_pressed("block"):
