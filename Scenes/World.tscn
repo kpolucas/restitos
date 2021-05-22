@@ -4,10 +4,10 @@
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Boss.tscn" type="PackedScene" id=3]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 321.78, 30.7568 )
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 219.382, 10 )
 
 [node name="Main" type="Node"]
@@ -23,17 +23,17 @@ texture = ExtResource( 1 )
 
 [node name="Piso" type="CollisionShape2D" parent="World/Limits"]
 position = Vector2( 2, -16 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="LimitRight" type="CollisionShape2D" parent="World/Limits"]
 position = Vector2( 302, -256 )
 rotation = 1.5708
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="LimitLeft" type="CollisionShape2D" parent="World/Limits"]
 position = Vector2( -308, -252 )
 rotation = 1.5708
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
 position = Vector2( 124.744, 293.038 )
