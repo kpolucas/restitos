@@ -7,17 +7,19 @@ var facing_right = true
 var health = 100
 
 # Movement
-export var BACKDASH = Vector2(-1000,-300) 
-export var GRAVITY = 100
+export var BACKDASH = Vector2(-1500,-300) 
+export var GRAVITY = 120
 export var MAXFALLSPEED = 500
-export var MAXSPEED = 120
-export var JUMPFORCE = 700
+export var MAXSPEED = 260
+export var JUMPFORCE = 1200
 export var ACCEL = 20
 export var STOPFRICTION = 0.2
 # Attack
-var attack123 = 3
+var attack123 = 1
 # Block
 export var canParry = false
+export var canCancel = false # not yet implemented
+export var canCombo = false # not yet implemented
 
 
 onready var anim = $AnimationPlayer
@@ -49,6 +51,11 @@ func _movement():
 		motion.x = lerp(motion.x,0,STOPFRICTION) # smooth de-acceleration
 	motion.x = clamp(motion.x,-MAXSPEED,MAXSPEED) # cap on the maxspeed
 	
+	if Input.is_action_just_pressed("crouch"):
+		pass #anim.play("crouch")
+	if Input.is_action_just_released("crouch"):
+		anim.play("idle")		
+	
 	if Input.is_action_just_pressed("jump") && is_on_floor():
 		motion.y = -JUMPFORCE
 	if Input.is_action_just_pressed("backdash") && is_on_floor():
@@ -67,16 +74,17 @@ func _direction():
 func _attack():
 	
 	if Input.is_action_just_pressed("attack"):
-		if attack123 >= 0:
+		if attack123 <= 3:
 			$AttackRestart.start()
+			
 		match attack123:
-			3:
+			1:
 				anim.play("attack123-1")
 			2:
 				anim.play("attack123-2")
-			1:
+			3:
 				anim.play("attack123-3")
-		attack123 -= 1
+		attack123 += 1
 		
 func _superattack():
 	if Input.is_action_just_pressed("superattack"):
@@ -93,7 +101,7 @@ func _block():
 		anim.play("idle")
 
 func _on_AttackRestart_timeout():
-	attack123 = 3
+	attack123 = 1
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name != "block" && anim_name != "superattackcharge":

@@ -1,30 +1,45 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Sprites/Floor/Floor.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Boss.tscn" type="PackedScene" id=3]
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 321.78, 30.7568 )
+
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 160.028, 30.7568 )
+extents = Vector2( 219.382, 10 )
 
 [node name="Main" type="Node"]
 
 [node name="World" type="Node2D" parent="."]
 
-[node name="Player" parent="World" instance=ExtResource( 2 )]
-position = Vector2( 192.744, 79.038 )
+[node name="Limits" type="StaticBody2D" parent="World"]
+position = Vector2( 320.488, 393.063 )
 
-[node name="Boss" parent="World" instance=ExtResource( 3 )]
-position = Vector2( 339.028, 86.876 )
-
-[node name="Piso" type="StaticBody2D" parent="World"]
-position = Vector2( 216.488, 177.063 )
-
-[node name="Sprite" type="Sprite" parent="World/Piso"]
+[node name="PisoSprite" type="Sprite" parent="World/Limits"]
+position = Vector2( 2, -16 )
 texture = ExtResource( 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Piso"]
+[node name="Piso" type="CollisionShape2D" parent="World/Limits"]
+position = Vector2( 2, -16 )
+shape = SubResource( 2 )
+
+[node name="LimitRight" type="CollisionShape2D" parent="World/Limits"]
+position = Vector2( 302, -256 )
+rotation = 1.5708
 shape = SubResource( 1 )
+
+[node name="LimitLeft" type="CollisionShape2D" parent="World/Limits"]
+position = Vector2( -308, -252 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="Player" parent="World" instance=ExtResource( 2 )]
+position = Vector2( 124.744, 293.038 )
+
+[node name="Boss" parent="World" instance=ExtResource( 3 )]
+position = Vector2( 497.028, 296.876 )
 
 [node name="Control" type="Control" parent="."]
 margin_right = 40.0
