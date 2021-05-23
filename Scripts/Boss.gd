@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 var health = 200
-var flashIntensity = 0
+var flashI = 0
 onready var anim = $AnimationPlayer
 onready var bossSpriteMaterial = $BossSprite.material
 
@@ -12,22 +12,22 @@ func _ready():
 func _process(delta):
 	if health <= 0:
 		queue_free()
-	
+
 	flashDecay()
 
 		
-func flash():
+func flashStart():
 	bossSpriteMaterial.set_shader_param("flashIntensity" ,1.0)
-	flashIntensity = 1.0
+	flashI = 1.0
 func flashDecay():
-	if flashIntensity >= 0:
-		flashIntensity = flashIntensity -0.1
-		bossSpriteMaterial.set_shader_param("flashIntensity" , flashIntensity)
+	if flashI >= 0:
+		flashI -= 0.1
+		bossSpriteMaterial.set_shader_param("flashIntensity" , flashI)
 
 func OnHit(damage):
 	health -= damage
-	flash()
-	$DamageParticles.emitting = true
+	flashStart()
+	# $DamageParticles.emitting = true # TODO
 	print("Enemy health: " + str(health))
 
 func _on_AttackCooldown_timeout():
