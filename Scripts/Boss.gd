@@ -2,12 +2,8 @@ extends KinematicBody2D
 
 var health = 200
 var flashI = 0
-onready var anim = $AnimationPlayer
-onready var bossSpriteMaterial = $BossSprite.material
 
-func _ready():
-	anim.play("idle")	
-	$AttackCooldown.start()
+onready var bossSpriteMaterial = $BossSprite.material
 
 func _process(delta):
 	if health <= 0:
@@ -29,11 +25,3 @@ func OnHit(damage):
 	flashStart()
 	# $DamageParticles.emitting = true # TODO
 	print("Enemy health: " + str(health))
-
-func _on_AttackCooldown_timeout():
-	anim.play("attack")
-	$AttackCooldown.start()
-
-func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name == "attack":
-		anim.play("idle")
