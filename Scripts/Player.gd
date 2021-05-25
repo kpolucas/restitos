@@ -18,8 +18,8 @@ export var STOPFRICTION = 0.2
 var attack123 = 1
 # Block
 export var canParry = false
-export var canCancel = false # not yet implemented
-export var canCombo = false # not yet implemented
+var canCancel = false # not yet implemented
+var canCombo = false # not yet implemented
 
 
 onready var anim = $AnimationPlayer

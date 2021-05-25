@@ -37,6 +37,7 @@ shape = SubResource( 2 )
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
 position = Vector2( 124.744, 293.038 )
+canParry = false
 
 [node name="Boss" parent="World" instance=ExtResource( 3 )]
 position = Vector2( 497.028, 296.876 )
