@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Sprites/Floor/Floor.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Boss.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Dummy.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 321.78, 30.7568 )
@@ -40,7 +41,10 @@ position = Vector2( 124.744, 293.038 )
 canParry = false
 
 [node name="Boss" parent="World" instance=ExtResource( 3 )]
-position = Vector2( 497.028, 296.876 )
+position = Vector2( 497.695, 291.537 )
+
+[node name="Dummy" parent="World" instance=ExtResource( 4 )]
+position = Vector2( 381, 286 )
 
 [node name="Control" type="Control" parent="."]
 margin_right = 40.0

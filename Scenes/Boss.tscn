@@ -10,9 +10,10 @@ shader = ExtResource( 4 )
 shader_param/flashIntensity = 0.1
 
 [sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8.75292, 8.314 )
 
 [sub_resource type="CapsuleShape2D" id=3]
-radius = 24.5968
+radius = 22.9641
 height = 65.6989
 
 [sub_resource type="ParticlesMaterial" id=4]
@@ -95,13 +96,12 @@ states/teleportOut/node = SubResource( 11 )
 states/teleportOut/position = Vector2( 268, 60 )
 transitions = [ "idle", "teleportOut", SubResource( 12 ), "teleportOut", "teleportIn", SubResource( 13 ), "teleportIn", "attack1", SubResource( 14 ), "teleportIn", "attack2", SubResource( 15 ), "laugh", "idle", SubResource( 16 ), "attack2", "idle", SubResource( 17 ), "attack1", "idle", SubResource( 18 ), "teleportIn", "idle 2", SubResource( 19 ), "idle 2", "laugh", SubResource( 20 ) ]
 start_node = "idle"
-graph_offset = Vector2( 0, 57.0275 )
+graph_offset = Vector2( 0, 14.175 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=22]
 
 [sub_resource type="Animation" id=23]
 length = 0.9
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("BossSprite:frame")
 tracks/0/interp = 1
@@ -133,10 +133,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.4 ),
+"times": PoolRealArray( 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=24]
@@ -151,6 +151,30 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 30, 31, 32, 33, 34, 35, 36, 37, 38, 39 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BossSprite/Area2D/BossAttackCollisionShape:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -34.9526, -16.5188 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BossSprite/Area2D/BossAttackCollisionShape:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=25]
@@ -260,20 +284,18 @@ position = Vector2( -1, 0 )
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 10
-frame = 1
+frame = 8
 
 [node name="Area2D" type="Area2D" parent="BossSprite"]
 
 [node name="BossAttackCollisionShape" type="CollisionShape2D" parent="BossSprite/Area2D"]
-position = Vector2( -49.8706, -22.0251 )
+position = Vector2( -49.8706, -21.7101 )
 shape = SubResource( 2 )
 disabled = true
 script = ExtResource( 3 )
 
 [node name="BossCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 2.3597 )
 shape = SubResource( 3 )
-disabled = true
 
 [node name="DamageParticles" type="Particles2D" parent="."]
 visible = false
@@ -287,7 +309,6 @@ process_material = SubResource( 4 )
 [node name="BossAnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 21 )
 anim_player = NodePath("../BossAnimationPlayer")
-active = true
 parameters/playback = SubResource( 22 )
 
 [node name="BossAnimationPlayer" type="AnimationPlayer" parent="."]

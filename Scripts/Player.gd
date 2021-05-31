@@ -8,12 +8,12 @@ var health = 100
 
 # Movement
 export var BACKDASH = Vector2(-1500,-300) 
-export var GRAVITY = 120
-export var MAXFALLSPEED = 500
-export var MAXSPEED = 260
-export var JUMPFORCE = 1200
-export var ACCEL = 20
-export var STOPFRICTION = 0.2
+export var GRAVITY = 60
+export var MAXFALLSPEED = 750
+export var MAXSPEED = 180
+export var JUMPFORCE = 850
+export var ACCEL = 65
+export var STOPFRICTION = 0.25
 # Attack
 var attack123 = 1
 # Block
@@ -52,12 +52,15 @@ func _movement():
 	motion.x = clamp(motion.x,-MAXSPEED,MAXSPEED) # cap on the maxspeed
 	
 	if Input.is_action_just_pressed("crouch"):
-		pass #anim.play("crouch")
+		anim.play("crouch")
 	if Input.is_action_just_released("crouch"):
-		anim.play("idle")		
+		anim.play("idle")
 	
 	if Input.is_action_just_pressed("jump") && is_on_floor():
 		motion.y = -JUMPFORCE
+	if Input.is_action_just_released("jump") && motion.y < 0:
+		motion.y = 0
+		
 	if Input.is_action_just_pressed("backdash") && is_on_floor():
 		motion.x = BACKDASH.x if facing_right else -BACKDASH.x
 		motion.y = BACKDASH.y
@@ -65,6 +68,9 @@ func _movement():
 			
 	if anim.current_animation != "idle" && anim.current_animation != "backdash": # Feo, ver si existe una mejor
 		motion.x = 0
+		
+#	if motion.x > 20 && is_on_floor():
+#		anim.play("running")
 	motion = move_and_slide(motion,Vector2.UP)
 
 func _direction():
