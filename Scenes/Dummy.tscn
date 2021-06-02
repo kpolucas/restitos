@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Sprites/Boss/boss.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Dummy.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/DummyAttackCollisionShape.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 14.2834, 5.69386 )
+extents = Vector2( 41.8222, 5.69386 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 19, 51 )
@@ -39,6 +40,8 @@ tracks/1/keys = {
 }
 
 [node name="Dummy" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 9
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -46,14 +49,17 @@ modulate = Color( 0.921569, 0, 1, 1 )
 texture = ExtResource( 1 )
 vframes = 5
 hframes = 10
-frame = 20
+frame = 21
 
 [node name="Area2D" type="Area2D" parent="Sprite"]
+collision_layer = 16
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Area2D"]
-position = Vector2( -48.1982, -23.2888 )
+position = Vector2( -18.3464, -22.8684 )
 shape = SubResource( 1 )
 disabled = true
+script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.5, 4.5 )
@@ -61,3 +67,4 @@ shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 3 )
+[connection signal="body_entered" from="Sprite/Area2D" to="Sprite/Area2D/CollisionShape2D" method="_on_Area2D_body_entered"]

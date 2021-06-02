@@ -17,6 +17,7 @@ extents = Vector2( 219.382, 10 )
 
 [node name="Limits" type="StaticBody2D" parent="World"]
 position = Vector2( 320.488, 393.063 )
+collision_mask = 0
 
 [node name="PisoSprite" type="Sprite" parent="World/Limits"]
 position = Vector2( 2, -16 )
@@ -38,7 +39,6 @@ shape = SubResource( 2 )
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
 position = Vector2( 124.744, 293.038 )
-canParry = false
 
 [node name="Boss" parent="World" instance=ExtResource( 3 )]
 position = Vector2( 497.695, 291.537 )

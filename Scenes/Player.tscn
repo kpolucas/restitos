@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/VanessaSpriteSheet.png" type="Texture" id=2]
@@ -129,7 +129,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id=6]
-length = 0.35
+length = 0.45
 tracks/0/type = "value"
 tracks/0/path = NodePath("PlayerSprite:frame")
 tracks/0/interp = 1
@@ -137,10 +137,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 61 ]
+"values": [ 90, 91, 92, 93 ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -187,6 +187,21 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=9]
+resource_name = "damaged"
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 100, 101, 102, 103, 104, 105, 106, 107, 108, 109 ]
+}
+
+[sub_resource type="Animation" id=10]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -202,7 +217,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("PlayerSprite:frame")
@@ -217,8 +232,7 @@ tracks/0/keys = {
 "values": [ 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59 ]
 }
 
-[sub_resource type="Animation" id=11]
-resource_name = "running"
+[sub_resource type="Animation" id=12]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -234,85 +248,87 @@ tracks/0/keys = {
 "values": [ 80, 81, 82, 83, 84, 85 ]
 }
 
-[sub_resource type="Animation" id=12]
-tracks/0/type = "value"
-tracks/0/path = NodePath("PlayerSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 62 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("PlayerSprite/Area2D/PlayerAttackCollisionShape:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "attack123-1"
 
-[sub_resource type="Animation" id=13]
-tracks/0/type = "value"
-tracks/0/path = NodePath("PlayerSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 63 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("PlayerSprite/Area2D/PlayerAttackCollisionShape:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -41.5055, 5.43133 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("PlayerSprite/Area2D/PlayerAttackCollisionShape:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
+[sub_resource type="AnimationNodeAnimation" id=14]
+animation = "backdash"
+
+[sub_resource type="AnimationNodeAnimation" id=15]
+animation = "block"
+
+[sub_resource type="AnimationNodeAnimation" id=16]
+animation = "damaged"
+
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=18]
+animation = "parry"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=21]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=26]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=27]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=28]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=29]
+states/attack123-1/node = SubResource( 13 )
+states/attack123-1/position = Vector2( 450, 303 )
+states/backdash/node = SubResource( 14 )
+states/backdash/position = Vector2( 456, 94 )
+states/block/node = SubResource( 15 )
+states/block/position = Vector2( 240, 94 )
+states/damaged/node = SubResource( 16 )
+states/damaged/position = Vector2( 681, 165 )
+states/idle/node = SubResource( 17 )
+states/idle/position = Vector2( 240, 209 )
+states/parry/node = SubResource( 18 )
+states/parry/position = Vector2( 70, 50 )
+transitions = [ "idle", "block", SubResource( 19 ), "idle", "backdash", SubResource( 20 ), "idle", "attack123-1", SubResource( 21 ), "block", "parry", SubResource( 22 ), "backdash", "damaged", SubResource( 23 ), "idle", "damaged", SubResource( 24 ), "attack123-1", "damaged", SubResource( 25 ), "damaged", "idle", SubResource( 26 ), "backdash", "idle", SubResource( 27 ), "attack123-1", "idle", SubResource( 28 ) ]
+start_node = "idle"
+graph_offset = Vector2( 0, 76.6492 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=30]
 
 [node name="Player" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource( 1 )
-BACKDASH = Vector2( -1500, -400 )
-canParry = true
+BACKDASH = Vector2( -1000, -280 )
 
 [node name="PlayerSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
-vframes = 9
+vframes = 11
 hframes = 10
-frame = 85
+frame = 4
 
 [node name="Area2D" type="Area2D" parent="PlayerSprite"]
+collision_layer = 8
+collision_mask = 4
 
 [node name="PlayerAttackCollisionShape" type="CollisionShape2D" parent="PlayerSprite/Area2D"]
-position = Vector2( -31.348, -41.2087 )
+position = Vector2( -40.786, -47.4972 )
 shape = SubResource( 1 )
 disabled = true
 script = ExtResource( 3 )
@@ -321,6 +337,9 @@ script = ExtResource( 3 )
 position = Vector2( 0, 0.529732 )
 shape = SubResource( 2 )
 
+[node name="AttackRestart" type="Timer" parent="."]
+wait_time = 0.5
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack123-1 = SubResource( 3 )
 anims/attack123-2 = SubResource( 4 )
@@ -328,15 +347,16 @@ anims/attack123-3 = SubResource( 5 )
 anims/backdash = SubResource( 6 )
 anims/block = SubResource( 7 )
 anims/crouch = SubResource( 8 )
-anims/idle = SubResource( 9 )
-anims/parry = SubResource( 10 )
-anims/running = SubResource( 11 )
-anims/superattackcharge = SubResource( 12 )
-anims/superattackrelease = SubResource( 13 )
+anims/damaged = SubResource( 9 )
+anims/idle = SubResource( 10 )
+anims/parry = SubResource( 11 )
+anims/running = SubResource( 12 )
 
-[node name="AttackRestart" type="Timer" parent="."]
-wait_time = 0.5
+[node name="PlayerAnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 29 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 30 )
 [connection signal="body_entered" from="PlayerSprite/Area2D" to="PlayerSprite/Area2D/PlayerAttackCollisionShape" method="_on_Area2D_body_entered"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
-[connection signal="animation_started" from="AnimationPlayer" to="PlayerSprite/Area2D/PlayerAttackCollisionShape" method="_on_AnimationPlayer_animation_started"]
 [connection signal="timeout" from="AttackRestart" to="." method="_on_AttackRestart_timeout"]
+[connection signal="animation_started" from="AnimationPlayer" to="PlayerSprite/Area2D/PlayerAttackCollisionShape" method="_on_AnimationPlayer_animation_started"]

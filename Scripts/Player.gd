@@ -3,9 +3,8 @@ extends KinematicBody2D
 var motion = Vector2()
 var facing_right = true
 
-#health
+# Health
 var health = 100
-
 # Movement
 export var BACKDASH = Vector2(-1500,-300) 
 export var GRAVITY = 60
@@ -18,28 +17,26 @@ export var STOPFRICTION = 0.25
 var attack123 = 1
 # Block
 export var canParry = false
-var canCancel = false # not yet implemented
-var canCombo = false # not yet implemented
+var knockback = 0
+var knockbackFriction = 0.15
 
+onready var playerSpriteMaterial = $PlayerSprite.material
+onready var playerAnimationTree = $PlayerAnimationTree.get("parameters/playback")
 
-onready var anim = $AnimationPlayer
-
-
-func _ready():
-	anim.play("idle")
 
 func _physics_process(delta):
 	_movement()
 	_direction()
 	_attack()
-	_superattack()
 	_block()
-
 
 func _movement():
 	motion.y += GRAVITY
 	if motion.y > MAXFALLSPEED:
-		motion.y = MAXFALLSPEED	
+		motion.y = MAXFALLSPEED
+	
+	knockback = lerp(knockback,0,knockbackFriction)
+	motion.x -= knockback
 	
 	if Input.is_action_pressed("right"): 
 		motion.x += ACCEL
@@ -51,11 +48,6 @@ func _movement():
 		motion.x = lerp(motion.x,0,STOPFRICTION) # smooth de-acceleration
 	motion.x = clamp(motion.x,-MAXSPEED,MAXSPEED) # cap on the maxspeed
 	
-	if Input.is_action_just_pressed("crouch"):
-		anim.play("crouch")
-	if Input.is_action_just_released("crouch"):
-		anim.play("idle")
-	
 	if Input.is_action_just_pressed("jump") && is_on_floor():
 		motion.y = -JUMPFORCE
 	if Input.is_action_just_released("jump") && motion.y < 0:
@@ -64,13 +56,8 @@ func _movement():
 	if Input.is_action_just_pressed("backdash") && is_on_floor():
 		motion.x = BACKDASH.x if facing_right else -BACKDASH.x
 		motion.y = BACKDASH.y
-		anim.play("backdash")
+		playerAnimationTree.travel("backdash")
 			
-	if anim.current_animation != "idle" && anim.current_animation != "backdash": # Feo, ver si existe una mejor
-		motion.x = 0
-		
-#	if motion.x > 20 && is_on_floor():
-#		anim.play("running")
 	motion = move_and_slide(motion,Vector2.UP)
 
 func _direction():
@@ -78,48 +65,33 @@ func _direction():
 	$PlayerSprite.position.x = 16 if facing_right else -16 # Centro el placeholder
 
 func _attack():
-	
 	if Input.is_action_just_pressed("attack"):
 		if attack123 <= 3:
-			$AttackRestart.start()
-			
+			$AttackRestart.start()	
 		match attack123:
 			1:
-				anim.play("attack123-1")
+				playerAnimationTree.travel("attack123-1")
 			2:
-				anim.play("attack123-2")
+				playerAnimationTree.travel("attack123-2")
 			3:
-				anim.play("attack123-3")
+				playerAnimationTree.travel("attack123-3")
 		attack123 += 1
-		
-func _superattack():
-	if Input.is_action_just_pressed("superattack"):
-		anim.play("superattackcharge")
-	if Input.is_action_just_released("superattack"):
-		anim.play("superattackrelease")
-		#motion = move_and_slide(Vector2(1600,-200),Vector2.UP)
-	
+			
 func _block():
 	if Input.is_action_just_pressed("block"):
-		anim.play("block")
+		playerAnimationTree.travel("block")
 	if Input.is_action_just_released("block"):
 		canParry = false
-		anim.play("idle")
+		playerAnimationTree.travel("idle")
+
+func OnHit(damage,kb):
+	if Input.is_action_pressed("block"):
+		damage = 0
+	else:
+		playerAnimationTree.travel("damaged")
+	knockback = kb
+	health -= damage
+	print("Player health: " + str(health))
 
 func _on_AttackRestart_timeout():
 	attack123 = 1
-
-func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name != "block" && anim_name != "superattackcharge":
-		anim.play("idle")
-
-func OnHit(damage):
-	if canParry:
-		anim.play("parry")
-		return
-		
-	if Input.is_action_pressed("block"):
-		damage = damage / 2
-		
-	health -= damage
-	print("Player health: " + str(health))
