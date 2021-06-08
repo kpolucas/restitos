@@ -16,7 +16,6 @@ func _process(delta):
 
 	_flash_decay()
 
-		
 func _flash_start():
 	bossSpriteMaterial.set_shader_param("flashIntensity" ,1.0)
 	flashI = 1.0
@@ -32,7 +31,6 @@ func OnHit(damage):
 	health -= damage
 	_flash_start()
 	# $DamageParticles.emitting = true # TODO
-	
 	print("Enemy health: " + str(health))
 
 func _teleport():

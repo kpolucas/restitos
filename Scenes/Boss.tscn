@@ -286,7 +286,7 @@ position = Vector2( -1, 0 )
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 10
-frame = 20
+frame = 27
 
 [node name="Area2D" type="Area2D" parent="BossSprite"]
 collision_layer = 16

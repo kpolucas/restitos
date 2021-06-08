@@ -14,14 +14,16 @@ export var JUMPFORCE = 850
 export var ACCEL = 65
 export var STOPFRICTION = 0.25
 # Attack
-var attack123 = 1
+
 # Block
-export var canParry = false
+export var parry = false
 var knockback = 0
 var knockbackFriction = 0.15
+signal parried
 
 onready var playerSpriteMaterial = $PlayerSprite.material
 onready var playerAnimationTree = $PlayerAnimationTree.get("parameters/playback")
+var currentAnim
 
 
 func _physics_process(delta):
@@ -37,7 +39,11 @@ func _movement():
 	
 	knockback = lerp(knockback,0,knockbackFriction)
 	motion.x -= knockback
-	
+
+# 	maybe
+#	if playerAnimationTree.get_current_node() == "damaged":
+#		return
+
 	if Input.is_action_pressed("right"): 
 		motion.x += ACCEL
 		facing_right = true
@@ -65,33 +71,33 @@ func _direction():
 	$PlayerSprite.position.x = 16 if facing_right else -16 # Centro el placeholder
 
 func _attack():
+	currentAnim = playerAnimationTree.get_current_node()
 	if Input.is_action_just_pressed("attack"):
-		if attack123 <= 3:
-			$AttackRestart.start()	
-		match attack123:
-			1:
+		match currentAnim:
+			"idle":
 				playerAnimationTree.travel("attack123-1")
-			2:
+			"attack123-1":
 				playerAnimationTree.travel("attack123-2")
-			3:
+			"attack123-2":
 				playerAnimationTree.travel("attack123-3")
-		attack123 += 1
+			_:
+				pass
 			
 func _block():
 	if Input.is_action_just_pressed("block"):
 		playerAnimationTree.travel("block")
 	if Input.is_action_just_released("block"):
-		canParry = false
+		parry = false
 		playerAnimationTree.travel("idle")
 
-func OnHit(damage,kb):
+func EnemyHitPlayer(damage,kb,attackIsParryable):
 	if Input.is_action_pressed("block"):
-		damage = 0
+		if parry && attackIsParryable:
+			playerAnimationTree.travel("parry")
+			emit_signal("parried")
+		else:
+			knockback = kb
 	else:
 		playerAnimationTree.travel("damaged")
-	knockback = kb
-	health -= damage
-	print("Player health: " + str(health))
-
-func _on_AttackRestart_timeout():
-	attack123 = 1
+		health -= damage
+		print("Player health: " + str(health))

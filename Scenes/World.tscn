@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Sprites/Floor/Floor.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Boss.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Dummy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Slowmotion.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 321.78, 30.7568 )
@@ -44,7 +45,12 @@ position = Vector2( 124.744, 293.038 )
 position = Vector2( 497.695, 291.537 )
 
 [node name="Dummy" parent="World" instance=ExtResource( 4 )]
-position = Vector2( 381, 286 )
+position = Vector2( 332.305, 288.247 )
+
+[node name="Effects" type="Node" parent="World"]
+
+[node name="Slowmotion" type="Node" parent="World/Effects"]
+script = ExtResource( 5 )
 
 [node name="Control" type="Control" parent="."]
 margin_right = 40.0
@@ -52,3 +58,5 @@ margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="parried" from="World/Player" to="World/Dummy" method="_on_Player_parried"]
+[connection signal="parried" from="World/Player" to="World/Effects/Slowmotion" method="_on_Player_parried"]
