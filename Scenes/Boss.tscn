@@ -284,7 +284,7 @@ script = ExtResource( 1 )
 material = SubResource( 1 )
 position = Vector2( -1, 0 )
 texture = ExtResource( 2 )
-vframes = 5
+vframes = 6
 hframes = 10
 frame = 27
 

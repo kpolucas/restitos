@@ -8,6 +8,10 @@ func _ready():
 
 
 func _on_Player_parried():
-	print("bossstunned")
-	#anim.play("stunned")
-	#shadelindo
+	anim.play("stunned")
+	#shaderlindo
+
+
+#negrada? revisar
+func _on_AnimationPlayer_animation_finished(anim_name):
+	anim.play("attack")

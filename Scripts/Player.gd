@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const parryEffect = preload("res://Sprites/Effects/ParryEffect.tscn")
+
 var motion = Vector2()
 var facing_right = true
 
@@ -95,8 +97,11 @@ func EnemyHitPlayer(damage,kb,attackIsParryable):
 		if parry && attackIsParryable:
 			playerAnimationTree.travel("parry")
 			emit_signal("parried")
+			var pE = parryEffect.instance()
+			add_child(pE)
 		else:
 			knockback = kb
+			
 	else:
 		playerAnimationTree.travel("damaged")
 		health -= damage
