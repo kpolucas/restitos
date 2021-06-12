@@ -34,4 +34,5 @@ func circl_ease_in(t, b, c, d):
 
 
 func _on_Player_parried():
-	start()
+	pass
+#	start()

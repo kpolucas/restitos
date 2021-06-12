@@ -1,7 +1,7 @@
 [gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Scripts/Boss.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Boss/Boss.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Boss/bossorig.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/BossAttackCollisionShape.gd" type="Script" id=3]
 [ext_resource path="res://Shaders/ImpactWhite.shader" type="Shader" id=4]
 
@@ -286,7 +286,7 @@ position = Vector2( -1, 0 )
 texture = ExtResource( 2 )
 vframes = 6
 hframes = 10
-frame = 27
+frame = 8
 
 [node name="Area2D" type="Area2D" parent="BossSprite"]
 collision_layer = 16

@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 var health = 600
 var flashI = 0
+var rng = RandomNumberGenerator.new()
 
 onready var bossSpriteMaterial = $BossSprite.material
 onready var bossAnimationTree = $BossAnimationTree.get("parameters/playback")
@@ -27,17 +28,17 @@ func _flash_decay():
 func _act():
 	pass
 
-func OnHit(damage):
+func player_hit_enemy(damage):
 	health -= damage
 	_flash_start()
 	# $DamageParticles.emitting = true # TODO
 	print("Enemy health: " + str(health))
 
 func _teleport():
-	var actions = ["attack1","attack2","laugh"]
+	var actions = ["attack1","attack2","laugh","attack1","attack2"]
 	actions.shuffle()
 	bossAnimationTree.travel(actions[1])
-	$AttackCooldown.start(5)
+	$AttackCooldown.start(rng.randi_range(2,4))
 	
 func move_behind_player(): # se dispara desde animationPlayer teleportOut
 	var _playerPos = Player.get_position().x

@@ -353,7 +353,7 @@ parry = true
 texture = ExtResource( 2 )
 vframes = 11
 hframes = 10
-frame = 1
+frame = 2
 
 [node name="Area2D" type="Area2D" parent="PlayerSprite"]
 collision_layer = 8

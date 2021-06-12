@@ -46,10 +46,10 @@ func _movement():
 #	if playerAnimationTree.get_current_node() == "damaged":
 #		return
 
-	if Input.is_action_pressed("right"): 
+	if Input.is_action_pressed("right") && playerAnimationTree.get_current_node() == "idle": 
 		motion.x += ACCEL
 		facing_right = true
-	elif Input.is_action_pressed("left"):
+	elif Input.is_action_pressed("left") && playerAnimationTree.get_current_node() == "idle":
 		motion.x -= ACCEL
 		facing_right = false
 	else:
@@ -92,12 +92,12 @@ func _block():
 		parry = false
 		playerAnimationTree.travel("idle")
 
-func EnemyHitPlayer(damage,kb,attackIsParryable):
+func enemy_hit_player(damage,kb,attackIsParryable):
 	if Input.is_action_pressed("block"):
 		if parry && attackIsParryable:
 			playerAnimationTree.travel("parry")
 			emit_signal("parried")
-			var pE = parryEffect.instance()
+			var pE = parryEffect.instance() # revisar y poner menos feo
 			add_child(pE)
 		else:
 			knockback = kb
