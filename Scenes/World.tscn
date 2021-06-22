@@ -39,10 +39,11 @@ rotation = 1.5708
 shape = SubResource( 2 )
 
 [node name="Boss" parent="World" instance=ExtResource( 3 )]
+visible = false
 position = Vector2( 420.532, 288.54 )
 
 [node name="BossDuolon" parent="World" instance=ExtResource( 4 )]
-position = Vector2( 285.41, 295.356 )
+position = Vector2( 544.657, 295.356 )
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
 position = Vector2( 124.744, 293.038 )

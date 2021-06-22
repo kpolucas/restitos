@@ -2,10 +2,12 @@ extends KinematicBody2D
 
 var health = 100
 
+export (PackedScene) var attackEffect 
 var actions = ["gancho","kick","sweep","mirror","explosion"]
 var lastAttack
 var nextAttack
 var rng = RandomNumberGenerator.new()
+onready var attackEffectPoint = $Sprite/AttackEffectPoint
 onready var Player = get_node("/root/Main/World/Player")
 onready var animationTree = $AnimationTree.get("parameters/playback")
 onready var currentAnimation
@@ -59,6 +61,13 @@ func set_next_attack_position(): # se dispara desde animationPlayer teleportOut+
 		newPosition = Vector2(_playerPos + offSet , self.get_position().y)
 		$Sprite.scale.x = -1 if offSet < 0 else 1
 	self.set_position(newPosition) 
+	
+	
+func instantiate_attack_effect(): # se dispara desde animationPlayer sweep,gancho,kick,etc
+	var attackEffectInstance = attackEffect.instance()
+	add_child(attackEffectInstance)
+	attackEffectInstance.global_position = attackEffectPoint.global_position
+	attackEffectInstance.global_rotation_degrees = attackEffectPoint.global_rotation_degrees
 
 
 func _on_IdleTimer_timeout():

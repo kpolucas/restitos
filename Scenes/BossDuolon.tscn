@@ -1,15 +1,15 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://Sprites/Boss/BossDuolon.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/BossDuolon.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/BossAttackEffect.tscn" type="PackedScene" id=3]
 
-[sub_resource type="RectangleShape2D" id=41]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 14.9802, 56.2608 )
 
-[sub_resource type="RectangleShape2D" id=42]
+[sub_resource type="RectangleShape2D" id=2]
 
-[sub_resource type="Animation" id=1]
-resource_name = "dying"
+[sub_resource type="Animation" id=3]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -24,8 +24,7 @@ tracks/0/keys = {
 "values": [ 120, 121, 122, 123, 124, 125, 126 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "explosion"
+[sub_resource type="Animation" id=4]
 length = 2.8
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -54,8 +53,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "gancho"
+[sub_resource type="Animation" id=5]
 length = 1.7
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -69,9 +67,46 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "instantiate_attack_effect"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/AttackEffectPoint:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -91.2168, -68.2358 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite/AttackEffectPoint:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 45.0 ]
+}
 
-[sub_resource type="Animation" id=4]
-resource_name = "idle"
+[sub_resource type="Animation" id=6]
 length = 1.6
 loop = true
 tracks/0/type = "value"
@@ -87,10 +122,9 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "intro"
+[sub_resource type="Animation" id=7]
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=8]
 length = 1.9
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -104,8 +138,46 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 105, 106, 107, 108, 109, 110 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/AttackEffectPoint:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.8 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 15.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/AttackEffectPoint:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.8 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -95.7066, -45.7866 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.8 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "instantiate_attack_effect"
+} ]
+}
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=9]
 length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -119,11 +191,48 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/AttackEffectPoint:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.7 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/AttackEffectPoint:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.7 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -110.86, -18.8475 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.7 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "instantiate_attack_effect"
+} ]
+}
 
-[sub_resource type="Animation" id=8]
-resource_name = "stunned"
+[sub_resource type="Animation" id=10]
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=11]
 length = 1.7
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -137,8 +246,46 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/AttackEffectPoint:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -101.319, 40.0818 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/AttackEffectPoint:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "instantiate_attack_effect"
+} ]
+}
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=12]
 length = 0.8
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -152,9 +299,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 142, 141, 140, 139, 138, 137, 136, 135 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
-[sub_resource type="Animation" id=11]
-length = 0.8
+[sub_resource type="Animation" id=13]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -162,10 +320,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 135, 136, 137, 138, 139, 140, 141, 142 ]
+"values": [ 135, 136, 137, 138, 139, 140, 141, 142, 143 ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath(".")
@@ -181,47 +339,51 @@ tracks/1/keys = {
 "method": "set_next_attack_position"
 } ]
 }
-
-[sub_resource type="AnimationNodeAnimation" id=12]
-animation = "dying"
-
-[sub_resource type="AnimationNodeAnimation" id=13]
-animation = "explosion"
+tracks/2/type = "value"
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="AnimationNodeAnimation" id=14]
-animation = "gancho"
+animation = "dying"
 
 [sub_resource type="AnimationNodeAnimation" id=15]
-animation = "idle"
+animation = "explosion"
 
 [sub_resource type="AnimationNodeAnimation" id=16]
-animation = "intro"
+animation = "gancho"
 
 [sub_resource type="AnimationNodeAnimation" id=17]
-animation = "kick"
+animation = "idle"
 
 [sub_resource type="AnimationNodeAnimation" id=18]
-animation = "mirror"
+animation = "intro"
 
 [sub_resource type="AnimationNodeAnimation" id=19]
-animation = "stunned"
+animation = "kick"
 
 [sub_resource type="AnimationNodeAnimation" id=20]
-animation = "sweep"
+animation = "mirror"
 
 [sub_resource type="AnimationNodeAnimation" id=21]
-animation = "teleportin"
+animation = "stunned"
 
 [sub_resource type="AnimationNodeAnimation" id=22]
+animation = "sweep"
+
+[sub_resource type="AnimationNodeAnimation" id=23]
+animation = "teleportin"
+
+[sub_resource type="AnimationNodeAnimation" id=24]
 animation = "teleportout"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=23]
-switch_mode = 2
-auto_advance = true
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
-switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=25]
 switch_mode = 2
@@ -240,22 +402,24 @@ switch_mode = 2
 auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=29]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=30]
 switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=31]
-switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=32]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=33]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=34]
-switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=35]
-switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=36]
 switch_mode = 2
@@ -264,51 +428,62 @@ switch_mode = 2
 switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=38]
+switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id=39]
-states/dying/node = SubResource( 12 )
+[sub_resource type="AnimationNodeStateMachineTransition" id=39]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=40]
+
+[sub_resource type="AnimationNodeStateMachine" id=41]
+states/dying/node = SubResource( 14 )
 states/dying/position = Vector2( 313, 90 )
-states/explosion/node = SubResource( 13 )
+states/explosion/node = SubResource( 15 )
 states/explosion/position = Vector2( 1035, 423 )
-states/gancho/node = SubResource( 14 )
+states/gancho/node = SubResource( 16 )
 states/gancho/position = Vector2( 890, 90 )
-states/idle/node = SubResource( 15 )
+states/idle/node = SubResource( 17 )
 states/idle/position = Vector2( 144, 182 )
-states/intro/node = SubResource( 16 )
+states/intro/node = SubResource( 18 )
 states/intro/position = Vector2( 144, 80 )
-states/kick/node = SubResource( 17 )
+states/kick/node = SubResource( 19 )
 states/kick/position = Vector2( 890, 182 )
-states/mirror/node = SubResource( 18 )
+states/mirror/node = SubResource( 20 )
 states/mirror/position = Vector2( 890, 345 )
-states/stunned/node = SubResource( 19 )
+states/stunned/node = SubResource( 21 )
 states/stunned/position = Vector2( 1084, 149 )
-states/sweep/node = SubResource( 20 )
+states/sweep/node = SubResource( 22 )
 states/sweep/position = Vector2( 890, 265 )
-states/teleportin/node = SubResource( 21 )
+states/teleportin/node = SubResource( 23 )
 states/teleportin/position = Vector2( 144, 423 )
-states/teleportout/node = SubResource( 22 )
+states/teleportout/node = SubResource( 24 )
 states/teleportout/position = Vector2( 144, 295 )
-transitions = [ "gancho", "idle", SubResource( 23 ), "kick", "idle", SubResource( 24 ), "sweep", "idle", SubResource( 25 ), "mirror", "idle", SubResource( 26 ), "explosion", "teleportin", SubResource( 27 ), "intro", "idle", SubResource( 28 ), "idle", "teleportout", SubResource( 29 ), "teleportout", "teleportin", SubResource( 30 ), "teleportin", "kick", SubResource( 31 ), "kick", "stunned", SubResource( 32 ), "gancho", "stunned", SubResource( 33 ), "teleportin", "mirror", SubResource( 34 ), "teleportin", "sweep", SubResource( 35 ), "teleportin", "gancho", SubResource( 36 ), "teleportin", "explosion", SubResource( 37 ), "idle", "dying", SubResource( 38 ) ]
+transitions = [ "gancho", "idle", SubResource( 25 ), "kick", "idle", SubResource( 26 ), "sweep", "idle", SubResource( 27 ), "mirror", "idle", SubResource( 28 ), "explosion", "teleportin", SubResource( 29 ), "intro", "idle", SubResource( 30 ), "idle", "teleportout", SubResource( 31 ), "teleportout", "teleportin", SubResource( 32 ), "teleportin", "kick", SubResource( 33 ), "kick", "stunned", SubResource( 34 ), "gancho", "stunned", SubResource( 35 ), "teleportin", "mirror", SubResource( 36 ), "teleportin", "sweep", SubResource( 37 ), "teleportin", "gancho", SubResource( 38 ), "teleportin", "explosion", SubResource( 39 ), "idle", "dying", SubResource( 40 ) ]
 start_node = "intro"
 end_node = "dying"
 graph_offset = Vector2( 0, 235.182 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=40]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=42]
 
 [node name="BossDuolon" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 9
 script = ExtResource( 2 )
+attackEffect = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.353546, 1.41421 )
-shape = SubResource( 41 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 vframes = 10
 hframes = 15
-frame = 1
+frame = 2
+
+[node name="AttackEffectPoint" type="Position2D" parent="Sprite"]
+position = Vector2( -95.7066, -45.7866 )
+rotation = 0.261799
 
 [node name="Area2D" type="Area2D" parent="Sprite"]
 collision_layer = 16
@@ -316,27 +491,27 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Area2D"]
 position = Vector2( -37.4767, -31.4663 )
-shape = SubResource( 42 )
+shape = SubResource( 2 )
 disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/dying = SubResource( 1 )
-anims/explosion = SubResource( 2 )
-anims/gancho = SubResource( 3 )
-anims/idle = SubResource( 4 )
-anims/intro = SubResource( 5 )
-anims/kick = SubResource( 6 )
-anims/mirror = SubResource( 7 )
-anims/stunned = SubResource( 8 )
-anims/sweep = SubResource( 9 )
-anims/teleportin = SubResource( 10 )
-anims/teleportout = SubResource( 11 )
+anims/dying = SubResource( 3 )
+anims/explosion = SubResource( 4 )
+anims/gancho = SubResource( 5 )
+anims/idle = SubResource( 6 )
+anims/intro = SubResource( 7 )
+anims/kick = SubResource( 8 )
+anims/mirror = SubResource( 9 )
+anims/stunned = SubResource( 10 )
+anims/sweep = SubResource( 11 )
+anims/teleportin = SubResource( 12 )
+anims/teleportout = SubResource( 13 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 39 )
+tree_root = SubResource( 41 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 40 )
+parameters/playback = SubResource( 42 )
 
 [node name="IdleTimer" type="Timer" parent="."]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]
