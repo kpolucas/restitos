@@ -286,7 +286,7 @@ position = Vector2( -1, 0 )
 texture = ExtResource( 2 )
 vframes = 6
 hframes = 10
-frame = 8
+frame = 40
 
 [node name="Area2D" type="Area2D" parent="BossSprite"]
 collision_layer = 16
@@ -300,6 +300,7 @@ script = ExtResource( 3 )
 
 [node name="BossCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource( 3 )
+disabled = true
 
 [node name="DamageParticles" type="Particles2D" parent="."]
 visible = false

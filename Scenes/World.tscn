@@ -38,11 +38,14 @@ position = Vector2( -308, -252 )
 rotation = 1.5708
 shape = SubResource( 2 )
 
-[node name="Player" parent="World" instance=ExtResource( 2 )]
-position = Vector2( 124.744, 293.038 )
-
 [node name="Boss" parent="World" instance=ExtResource( 3 )]
 position = Vector2( 420.532, 288.54 )
+
+[node name="BossDuolon" parent="World" instance=ExtResource( 4 )]
+position = Vector2( 285.41, 295.356 )
+
+[node name="Player" parent="World" instance=ExtResource( 2 )]
+position = Vector2( 124.744, 293.038 )
 
 [node name="Effects" type="Node" parent="World"]
 
@@ -55,6 +58,4 @@ margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="BossDuolon" parent="." instance=ExtResource( 4 )]
 [connection signal="parried" from="World/Player" to="World/Effects/Slowmotion" method="_on_Player_parried"]
