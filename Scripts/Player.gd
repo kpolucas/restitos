@@ -22,6 +22,7 @@ export var parry = false
 var knockback = 0
 var knockbackFriction = 0.15
 signal parried
+signal damaged
 
 onready var playerSpriteMaterial = $PlayerSprite.material
 onready var playerAnimationTree = $PlayerAnimationTree.get("parameters/playback")
@@ -47,7 +48,7 @@ func _movement():
 #	if playerAnimationTree.get_current_node() == "damaged":
 #		return
 
-	# THE HORROR! 
+	# THE HORROR!  Refactor ALL!
 	if Input.is_action_pressed("right") && _can_move():
 		motion.x += ACCEL
 		facing_right = true
@@ -89,6 +90,8 @@ func _attack():
 		match currentAnim:
 			"idle":
 				playerAnimationTree.travel("attack123-1")
+			"walking":
+				playerAnimationTree.travel("attack123-1")
 			"attack123-1":
 				playerAnimationTree.travel("attack123-2")
 			"attack123-2":
@@ -113,6 +116,7 @@ func _can_move():
 
 
 func enemy_hit_player(damage,kb,attackIsParryable):
+	# ver si se puede hacer de una manera menos horrible
 	if Input.is_action_pressed("block"):
 		if parry && attackIsParryable:
 			playerAnimationTree.travel("parry")
@@ -123,6 +127,8 @@ func enemy_hit_player(damage,kb,attackIsParryable):
 			knockback = kb
 			
 	else:
+		knockback = kb * 2 # TODO cambiar dirección de la animación
 		playerAnimationTree.travel("damaged")
+		emit_signal("damaged")
 		health -= damage
 		print("Player health: " + str(health))

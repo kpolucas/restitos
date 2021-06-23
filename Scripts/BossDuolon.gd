@@ -1,8 +1,9 @@
 extends KinematicBody2D
 
-var health = 100
+var health = 600
 
 export (PackedScene) var attackEffect 
+var flashI = 0
 var actions = ["gancho","kick","sweep","mirror","explosion"]
 var lastAttack
 var nextAttack
@@ -18,8 +19,12 @@ func _ready():
 
 
 func _process(delta):
-	var currentAnimation = animationTree.get_current_node()	
+	if health <= 0:
+		queue_free()
+
+	_flash_decay()
 	
+	var currentAnimation = animationTree.get_current_node()	
 	match currentAnimation:
 		'dying':
 			pass
@@ -69,6 +74,22 @@ func instantiate_attack_effect(): # se dispara desde animationPlayer sweep,ganch
 	add_child(attackEffectInstance)
 	attackEffectInstance.global_position = attackEffectPoint.global_position
 	attackEffectInstance.global_rotation_degrees = attackEffectPoint.global_rotation_degrees
+	
+
+func _flash_start():
+	$Sprite.material.set_shader_param("flashIntensity" ,1.0)
+	flashI = 1.0
+func _flash_decay():
+	if flashI >= 0:
+		flashI -= 0.1
+		$Sprite.material.set_shader_param("flashIntensity" , flashI)
+
+
+func player_hit_enemy(damage):
+	health -= damage
+	_flash_start()
+	# $DamageParticles.emitting = true # TODO
+	print("Enemy health: " + str(health))
 
 
 func _on_IdleTimer_timeout():

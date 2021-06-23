@@ -1,15 +1,22 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://Sprites/Boss/BossDuolon.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/BossDuolon.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/BossAttackEffect.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Shaders/ImpactWhite.shader" type="Shader" id=4]
+[ext_resource path="res://Scripts/BossAttackCollisionShape.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 14.9802, 56.2608 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 4 )
+shader_param/flashIntensity = 0.1
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 75.6748, 55.3473 )
+
+[sub_resource type="Animation" id=4]
 length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -24,8 +31,9 @@ tracks/0/keys = {
 "values": [ 120, 121, 122, 123, 124, 125, 126 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 2.8
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -52,9 +60,46 @@ tracks/1/keys = {
 "method": "set_next_attack_position"
 } ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/Area2D/CollisionShape2D:shape:extents")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1, 1.4, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 35.8275, 41.3165 ), Vector2( 49.8582, 42.439 ), Vector2( 75.6748, 55.3473 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite/Area2D/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1, 2.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite/Area2D/CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 1.7
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -105,8 +150,44 @@ tracks/3/keys = {
 "update": 0,
 "values": [ 45.0 ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite/Area2D/CollisionShape2D:shape:extents")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 10.0109, 10.4489 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Sprite/Area2D/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Sprite/Area2D/CollisionShape2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -72.9599, -51.6332 ) ]
+}
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 1.6
 loop = true
 tracks/0/type = "value"
@@ -122,9 +203,9 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=7]
-
 [sub_resource type="Animation" id=8]
+
+[sub_resource type="Animation" id=9]
 length = 1.9
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -177,7 +258,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -230,9 +311,9 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=10]
-
 [sub_resource type="Animation" id=11]
+
+[sub_resource type="Animation" id=12]
 length = 1.7
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -285,7 +366,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 length = 0.8
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -312,7 +393,7 @@ tracks/1/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=14]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -352,42 +433,38 @@ tracks/2/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=15]
 animation = "dying"
 
-[sub_resource type="AnimationNodeAnimation" id=15]
+[sub_resource type="AnimationNodeAnimation" id=16]
 animation = "explosion"
 
-[sub_resource type="AnimationNodeAnimation" id=16]
+[sub_resource type="AnimationNodeAnimation" id=17]
 animation = "gancho"
 
-[sub_resource type="AnimationNodeAnimation" id=17]
+[sub_resource type="AnimationNodeAnimation" id=18]
 animation = "idle"
 
-[sub_resource type="AnimationNodeAnimation" id=18]
+[sub_resource type="AnimationNodeAnimation" id=19]
 animation = "intro"
 
-[sub_resource type="AnimationNodeAnimation" id=19]
+[sub_resource type="AnimationNodeAnimation" id=20]
 animation = "kick"
 
-[sub_resource type="AnimationNodeAnimation" id=20]
+[sub_resource type="AnimationNodeAnimation" id=21]
 animation = "mirror"
 
-[sub_resource type="AnimationNodeAnimation" id=21]
+[sub_resource type="AnimationNodeAnimation" id=22]
 animation = "stunned"
 
-[sub_resource type="AnimationNodeAnimation" id=22]
+[sub_resource type="AnimationNodeAnimation" id=23]
 animation = "sweep"
 
-[sub_resource type="AnimationNodeAnimation" id=23]
+[sub_resource type="AnimationNodeAnimation" id=24]
 animation = "teleportin"
 
-[sub_resource type="AnimationNodeAnimation" id=24]
+[sub_resource type="AnimationNodeAnimation" id=25]
 animation = "teleportout"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=25]
-switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=26]
 switch_mode = 2
@@ -410,19 +487,20 @@ switch_mode = 2
 auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=31]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=32]
-switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=33]
 switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=34]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=35]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=36]
-switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=37]
 switch_mode = 2
@@ -434,36 +512,39 @@ switch_mode = 2
 switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=40]
+switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id=41]
-states/dying/node = SubResource( 14 )
+[sub_resource type="AnimationNodeStateMachineTransition" id=41]
+
+[sub_resource type="AnimationNodeStateMachine" id=42]
+states/dying/node = SubResource( 15 )
 states/dying/position = Vector2( 313, 90 )
-states/explosion/node = SubResource( 15 )
+states/explosion/node = SubResource( 16 )
 states/explosion/position = Vector2( 1035, 423 )
-states/gancho/node = SubResource( 16 )
+states/gancho/node = SubResource( 17 )
 states/gancho/position = Vector2( 890, 90 )
-states/idle/node = SubResource( 17 )
+states/idle/node = SubResource( 18 )
 states/idle/position = Vector2( 144, 182 )
-states/intro/node = SubResource( 18 )
+states/intro/node = SubResource( 19 )
 states/intro/position = Vector2( 144, 80 )
-states/kick/node = SubResource( 19 )
+states/kick/node = SubResource( 20 )
 states/kick/position = Vector2( 890, 182 )
-states/mirror/node = SubResource( 20 )
+states/mirror/node = SubResource( 21 )
 states/mirror/position = Vector2( 890, 345 )
-states/stunned/node = SubResource( 21 )
+states/stunned/node = SubResource( 22 )
 states/stunned/position = Vector2( 1084, 149 )
-states/sweep/node = SubResource( 22 )
+states/sweep/node = SubResource( 23 )
 states/sweep/position = Vector2( 890, 265 )
-states/teleportin/node = SubResource( 23 )
+states/teleportin/node = SubResource( 24 )
 states/teleportin/position = Vector2( 144, 423 )
-states/teleportout/node = SubResource( 24 )
+states/teleportout/node = SubResource( 25 )
 states/teleportout/position = Vector2( 144, 295 )
-transitions = [ "gancho", "idle", SubResource( 25 ), "kick", "idle", SubResource( 26 ), "sweep", "idle", SubResource( 27 ), "mirror", "idle", SubResource( 28 ), "explosion", "teleportin", SubResource( 29 ), "intro", "idle", SubResource( 30 ), "idle", "teleportout", SubResource( 31 ), "teleportout", "teleportin", SubResource( 32 ), "teleportin", "kick", SubResource( 33 ), "kick", "stunned", SubResource( 34 ), "gancho", "stunned", SubResource( 35 ), "teleportin", "mirror", SubResource( 36 ), "teleportin", "sweep", SubResource( 37 ), "teleportin", "gancho", SubResource( 38 ), "teleportin", "explosion", SubResource( 39 ), "idle", "dying", SubResource( 40 ) ]
+transitions = [ "gancho", "idle", SubResource( 26 ), "kick", "idle", SubResource( 27 ), "sweep", "idle", SubResource( 28 ), "mirror", "idle", SubResource( 29 ), "explosion", "teleportin", SubResource( 30 ), "intro", "idle", SubResource( 31 ), "idle", "teleportout", SubResource( 32 ), "teleportout", "teleportin", SubResource( 33 ), "teleportin", "kick", SubResource( 34 ), "kick", "stunned", SubResource( 35 ), "gancho", "stunned", SubResource( 36 ), "teleportin", "mirror", SubResource( 37 ), "teleportin", "sweep", SubResource( 38 ), "teleportin", "gancho", SubResource( 39 ), "teleportin", "explosion", SubResource( 40 ), "idle", "dying", SubResource( 41 ) ]
 start_node = "intro"
 end_node = "dying"
 graph_offset = Vector2( 0, 235.182 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=42]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=43]
 
 [node name="BossDuolon" type="KinematicBody2D"]
 collision_layer = 4
@@ -476,42 +557,44 @@ position = Vector2( -0.353546, 1.41421 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 2 )
 texture = ExtResource( 1 )
 vframes = 10
 hframes = 15
 frame = 2
 
 [node name="AttackEffectPoint" type="Position2D" parent="Sprite"]
-position = Vector2( -95.7066, -45.7866 )
-rotation = 0.261799
+position = Vector2( -91.2168, -68.2358 )
+rotation = 0.785398
 
 [node name="Area2D" type="Area2D" parent="Sprite"]
 collision_layer = 16
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Area2D"]
-position = Vector2( -37.4767, -31.4663 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 disabled = true
+script = ExtResource( 5 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/dying = SubResource( 3 )
-anims/explosion = SubResource( 4 )
-anims/gancho = SubResource( 5 )
-anims/idle = SubResource( 6 )
-anims/intro = SubResource( 7 )
-anims/kick = SubResource( 8 )
-anims/mirror = SubResource( 9 )
-anims/stunned = SubResource( 10 )
-anims/sweep = SubResource( 11 )
-anims/teleportin = SubResource( 12 )
-anims/teleportout = SubResource( 13 )
+anims/dying = SubResource( 4 )
+anims/explosion = SubResource( 5 )
+anims/gancho = SubResource( 6 )
+anims/idle = SubResource( 7 )
+anims/intro = SubResource( 8 )
+anims/kick = SubResource( 9 )
+anims/mirror = SubResource( 10 )
+anims/stunned = SubResource( 11 )
+anims/sweep = SubResource( 12 )
+anims/teleportin = SubResource( 13 )
+anims/teleportout = SubResource( 14 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 41 )
+tree_root = SubResource( 42 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 42 )
+parameters/playback = SubResource( 43 )
 
 [node name="IdleTimer" type="Timer" parent="."]
+[connection signal="body_entered" from="Sprite/Area2D" to="Sprite/Area2D/CollisionShape2D" method="_on_Area2D_body_entered"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]

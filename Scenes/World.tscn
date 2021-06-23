@@ -59,4 +59,5 @@ margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="damaged" from="World/Player" to="World/Effects/Slowmotion" method="_on_Player_damaged"]
 [connection signal="parried" from="World/Player" to="World/Effects/Slowmotion" method="_on_Player_parried"]

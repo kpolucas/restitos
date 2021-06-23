@@ -36,3 +36,6 @@ func circl_ease_in(t, b, c, d):
 func _on_Player_parried():
 	pass
 #	start()
+
+func _on_Player_damaged():
+	start()
