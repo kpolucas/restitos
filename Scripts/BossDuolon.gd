@@ -55,8 +55,9 @@ func set_next_attack_position(): # se dispara desde animationPlayer teleportOut+
 	
 	if actions[0] == "mirror":
 		newPosition = Vector2(100,self.get_position().y) # armar la logica mirror desp
+		$Sprite.scale.x = -1
 	else:
-		var _playerPos = Player.get_position().x	
+		var _playerPos = Player.get_position().x
 		var offSet = rng.randf_range(-55.0, 55.0)
 		newPosition = Vector2(_playerPos + offSet , self.get_position().y)
 		$Sprite.scale.x = -1 if offSet < 0 else 1

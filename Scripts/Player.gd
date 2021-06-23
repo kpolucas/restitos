@@ -34,6 +34,7 @@ func _physics_process(delta):
 	_attack()
 	_block()
 
+
 func _movement():
 	motion.y += GRAVITY
 	if motion.y > MAXFALLSPEED:
@@ -46,16 +47,24 @@ func _movement():
 #	if playerAnimationTree.get_current_node() == "damaged":
 #		return
 
-	if Input.is_action_pressed("right") && playerAnimationTree.get_current_node() == "idle": 
+	# THE HORROR! 
+	if Input.is_action_pressed("right") && _can_move():
 		motion.x += ACCEL
 		facing_right = true
-	elif Input.is_action_pressed("left") && playerAnimationTree.get_current_node() == "idle":
+		if is_on_floor():
+			playerAnimationTree.travel("walking")
+	elif Input.is_action_pressed("left") && _can_move():
 		motion.x -= ACCEL
 		facing_right = false
+		if is_on_floor():
+			playerAnimationTree.travel("walking")
 	else:
 		motion.x = lerp(motion.x,0,STOPFRICTION) # smooth de-acceleration
 	motion.x = clamp(motion.x,-MAXSPEED,MAXSPEED) # cap on the maxspeed
-	
+
+	if Input.is_action_just_released("left") || Input.is_action_just_released("right"): # && is_on_floor()):
+		playerAnimationTree.travel("idle")
+
 	if Input.is_action_just_pressed("jump") && is_on_floor():
 		motion.y = -JUMPFORCE
 	if Input.is_action_just_released("jump") && motion.y < 0:
@@ -68,9 +77,11 @@ func _movement():
 			
 	motion = move_and_slide(motion,Vector2.UP)
 
+
 func _direction():
 	$PlayerSprite.scale.x = -1 if facing_right else 1
 	$PlayerSprite.position.x = 16 if facing_right else -16 # Centro el placeholder
+
 
 func _attack():
 	currentAnim = playerAnimationTree.get_current_node()
@@ -85,12 +96,21 @@ func _attack():
 			_:
 				pass
 			
+			
 func _block():
 	if Input.is_action_just_pressed("block"):
 		playerAnimationTree.travel("block")
 	if Input.is_action_just_released("block"):
 		parry = false
 		playerAnimationTree.travel("idle")
+		
+
+func _can_move(): 
+	if (playerAnimationTree.get_current_node() == "idle" || playerAnimationTree.get_current_node() == "walking"):
+		return true
+	else:
+		return false
+
 
 func enemy_hit_player(damage,kb,attackIsParryable):
 	if Input.is_action_pressed("block"):

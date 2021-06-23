@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/VanessaSpriteSheet.png" type="Texture" id=2]
@@ -233,7 +233,8 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=12]
-length = 0.6
+resource_name = "walking"
+length = 0.8
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("PlayerSprite:frame")
@@ -242,10 +243,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 80, 81, 82, 83, 84, 85 ]
+"values": [ 80, 81, 82, 83, 84, 85, 86, 87 ]
 }
 
 [sub_resource type="AnimationNodeAnimation" id=13]
@@ -272,7 +273,8 @@ animation = "idle"
 [sub_resource type="AnimationNodeAnimation" id=20]
 animation = "parry"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=21]
+[sub_resource type="AnimationNodeAnimation" id=21]
+animation = "walking"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=22]
 
@@ -287,8 +289,6 @@ animation = "parry"
 [sub_resource type="AnimationNodeStateMachineTransition" id=27]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=28]
-switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=29]
 switch_mode = 2
@@ -300,13 +300,13 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=31]
 switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=32]
 switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=33]
 switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=34]
 switch_mode = 2
@@ -318,8 +318,16 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=36]
 switch_mode = 2
+auto_advance = true
 
-[sub_resource type="AnimationNodeStateMachine" id=37]
+[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=38]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=39]
+
+[sub_resource type="AnimationNodeStateMachine" id=40]
 states/attack123-1/node = SubResource( 13 )
 states/attack123-1/position = Vector2( 450, 303 )
 states/attack123-2/node = SubResource( 14 )
@@ -333,14 +341,16 @@ states/block/position = Vector2( 240, 94 )
 states/damaged/node = SubResource( 18 )
 states/damaged/position = Vector2( 681, 165 )
 states/idle/node = SubResource( 19 )
-states/idle/position = Vector2( 240, 208 )
+states/idle/position = Vector2( 285, 217 )
 states/parry/node = SubResource( 20 )
-states/parry/position = Vector2( 70, 50 )
-transitions = [ "idle", "block", SubResource( 21 ), "idle", "backdash", SubResource( 22 ), "idle", "attack123-1", SubResource( 23 ), "block", "parry", SubResource( 24 ), "backdash", "damaged", SubResource( 25 ), "idle", "damaged", SubResource( 26 ), "attack123-1", "damaged", SubResource( 27 ), "damaged", "idle", SubResource( 28 ), "backdash", "idle", SubResource( 29 ), "attack123-1", "idle", SubResource( 30 ), "attack123-1", "attack123-2", SubResource( 31 ), "attack123-2", "attack123-3", SubResource( 32 ), "attack123-3", "idle", SubResource( 33 ), "attack123-2", "idle", SubResource( 34 ), "parry", "idle", SubResource( 35 ), "block", "idle", SubResource( 36 ) ]
+states/parry/position = Vector2( 74, 94 )
+states/walking/node = SubResource( 21 )
+states/walking/position = Vector2( 144, 303 )
+transitions = [ "idle", "block", SubResource( 22 ), "idle", "backdash", SubResource( 23 ), "idle", "attack123-1", SubResource( 24 ), "block", "parry", SubResource( 25 ), "backdash", "damaged", SubResource( 26 ), "idle", "damaged", SubResource( 27 ), "attack123-1", "damaged", SubResource( 28 ), "damaged", "idle", SubResource( 29 ), "backdash", "idle", SubResource( 30 ), "attack123-1", "idle", SubResource( 31 ), "attack123-1", "attack123-2", SubResource( 32 ), "attack123-2", "attack123-3", SubResource( 33 ), "attack123-3", "idle", SubResource( 34 ), "attack123-2", "idle", SubResource( 35 ), "parry", "idle", SubResource( 36 ), "block", "idle", SubResource( 37 ), "walking", "idle", SubResource( 38 ), "idle", "walking", SubResource( 39 ) ]
 start_node = "idle"
-graph_offset = Vector2( 0, 12.433 )
+graph_offset = Vector2( 0, 58.5586 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=38]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=41]
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
@@ -348,13 +358,12 @@ collision_mask = 5
 script = ExtResource( 1 )
 BACKDASH = Vector2( -1000, -280 )
 JUMPFORCE = 800
-parry = true
 
 [node name="PlayerSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
-vframes = 11
+vframes = 13
 hframes = 10
-frame = 4
+frame = 80
 
 [node name="Area2D" type="Area2D" parent="PlayerSprite"]
 collision_layer = 8
@@ -380,12 +389,12 @@ anims/crouch = SubResource( 8 )
 anims/damaged = SubResource( 9 )
 anims/idle = SubResource( 10 )
 anims/parry = SubResource( 11 )
-anims/running = SubResource( 12 )
+anims/walking = SubResource( 12 )
 
 [node name="PlayerAnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 37 )
+tree_root = SubResource( 40 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 38 )
+parameters/playback = SubResource( 41 )
 [connection signal="body_entered" from="PlayerSprite/Area2D" to="PlayerSprite/Area2D/PlayerAttackCollisionShape" method="_on_Area2D_body_entered"]
 [connection signal="animation_started" from="AnimationPlayer" to="PlayerSprite/Area2D/PlayerAttackCollisionShape" method="_on_AnimationPlayer_animation_started"]
