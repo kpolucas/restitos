@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/VanessaSpriteSheet.png" type="Texture" id=2]
@@ -329,6 +329,8 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=40]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=43]
+
 [sub_resource type="AnimationNodeStateMachine" id=41]
 states/attack123-1/node = SubResource( 13 )
 states/attack123-1/position = Vector2( 450, 303 )
@@ -348,9 +350,9 @@ states/parry/node = SubResource( 20 )
 states/parry/position = Vector2( 74, 94 )
 states/walking/node = SubResource( 21 )
 states/walking/position = Vector2( 144, 303 )
-transitions = [ "idle", "block", SubResource( 22 ), "idle", "backdash", SubResource( 23 ), "idle", "attack123-1", SubResource( 24 ), "block", "parry", SubResource( 25 ), "backdash", "damaged", SubResource( 26 ), "idle", "damaged", SubResource( 27 ), "attack123-1", "damaged", SubResource( 28 ), "damaged", "idle", SubResource( 29 ), "backdash", "idle", SubResource( 30 ), "attack123-1", "idle", SubResource( 31 ), "attack123-1", "attack123-2", SubResource( 32 ), "attack123-2", "attack123-3", SubResource( 33 ), "attack123-3", "idle", SubResource( 34 ), "attack123-2", "idle", SubResource( 35 ), "parry", "idle", SubResource( 36 ), "block", "idle", SubResource( 37 ), "walking", "idle", SubResource( 38 ), "idle", "walking", SubResource( 39 ), "walking", "attack123-1", SubResource( 40 ) ]
+transitions = [ "idle", "block", SubResource( 22 ), "idle", "backdash", SubResource( 23 ), "idle", "attack123-1", SubResource( 24 ), "block", "parry", SubResource( 25 ), "backdash", "damaged", SubResource( 26 ), "idle", "damaged", SubResource( 27 ), "attack123-1", "damaged", SubResource( 28 ), "damaged", "idle", SubResource( 29 ), "backdash", "idle", SubResource( 30 ), "attack123-1", "idle", SubResource( 31 ), "attack123-1", "attack123-2", SubResource( 32 ), "attack123-2", "attack123-3", SubResource( 33 ), "attack123-3", "idle", SubResource( 34 ), "attack123-2", "idle", SubResource( 35 ), "parry", "idle", SubResource( 36 ), "block", "idle", SubResource( 37 ), "walking", "idle", SubResource( 38 ), "idle", "walking", SubResource( 39 ), "walking", "attack123-1", SubResource( 40 ), "walking", "block", SubResource( 43 ) ]
 start_node = "idle"
-graph_offset = Vector2( 0, 170.447 )
+graph_offset = Vector2( 0, 70.547 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=42]
 
@@ -365,7 +367,7 @@ JUMPFORCE = 800
 texture = ExtResource( 2 )
 vframes = 13
 hframes = 10
-frame = 3
+frame = 1
 
 [node name="Area2D" type="Area2D" parent="PlayerSprite"]
 collision_layer = 8

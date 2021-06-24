@@ -25,7 +25,7 @@ signal parried
 signal damaged
 
 onready var playerSpriteMaterial = $PlayerSprite.material
-onready var playerAnimationTree = $PlayerAnimationTree.get("parameters/playback")
+onready var anim = $PlayerAnimationTree.get("parameters/playback")
 var currentAnim
 
 
@@ -45,7 +45,7 @@ func _movement():
 	motion.x -= knockback
 
 # 	maybe
-#	if playerAnimationTree.get_current_node() == "damaged":
+#	if anim.get_current_node() == "damaged":
 #		return
 
 	# THE HORROR!  Refactor ALL!
@@ -53,18 +53,18 @@ func _movement():
 		motion.x += ACCEL
 		facing_right = true
 		if is_on_floor():
-			playerAnimationTree.travel("walking")
+			anim.travel("walking")
 	elif Input.is_action_pressed("left") && _can_move():
 		motion.x -= ACCEL
 		facing_right = false
 		if is_on_floor():
-			playerAnimationTree.travel("walking")
+			anim.travel("walking")
 	else:
 		motion.x = lerp(motion.x,0,STOPFRICTION) # smooth de-acceleration
 	motion.x = clamp(motion.x,-MAXSPEED,MAXSPEED) # cap on the maxspeed
 
-	if Input.is_action_just_released("left") || Input.is_action_just_released("right"): # && is_on_floor()):
-		playerAnimationTree.travel("idle")
+	if abs(motion.x) < 10 && is_on_floor():
+		anim.travel("idle")
 
 	if Input.is_action_just_pressed("jump") && is_on_floor():
 		motion.y = -JUMPFORCE
@@ -74,7 +74,7 @@ func _movement():
 	if Input.is_action_just_pressed("backdash") && is_on_floor():
 		motion.x = BACKDASH.x if facing_right else -BACKDASH.x
 		motion.y = BACKDASH.y
-		playerAnimationTree.travel("backdash")
+		anim.travel("backdash")
 			
 	motion = move_and_slide(motion,Vector2.UP)
 
@@ -85,31 +85,28 @@ func _direction():
 
 
 func _attack():
-	currentAnim = playerAnimationTree.get_current_node()
+	currentAnim = anim.get_current_node()
 	if Input.is_action_just_pressed("attack"):
 		match currentAnim:
 			"idle":
-				playerAnimationTree.travel("attack123-1")
+				anim.travel("attack123-1")
 			"walking":
-				playerAnimationTree.travel("attack123-1")
+				anim.travel("attack123-1")
 			"attack123-1":
-				playerAnimationTree.travel("attack123-2")
+				anim.travel("attack123-2")
 			"attack123-2":
-				playerAnimationTree.travel("attack123-3")
+				anim.travel("attack123-3")
 			_:
 				pass
 			
 			
 func _block():
 	if Input.is_action_just_pressed("block"):
-		playerAnimationTree.travel("block")
-	if Input.is_action_just_released("block"):
-		parry = false
-		playerAnimationTree.travel("idle")
+		anim.travel("block")
 		
 
 func _can_move(): 
-	if (playerAnimationTree.get_current_node() == "idle" || playerAnimationTree.get_current_node() == "walking"):
+	if (anim.get_current_node() == "idle" || anim.get_current_node() == "walking"):
 		return true
 	else:
 		return false
@@ -119,7 +116,7 @@ func enemy_hit_player(damage,kb,attackIsParryable):
 	# ver si se puede hacer de una manera menos horrible
 	if Input.is_action_pressed("block"):
 		if parry && attackIsParryable:
-			playerAnimationTree.travel("parry")
+			anim.travel("parry")
 			emit_signal("parried")
 			var pE = parryEffect.instance() # revisar y poner menos feo
 			add_child(pE)
@@ -128,7 +125,7 @@ func enemy_hit_player(damage,kb,attackIsParryable):
 			
 	else:
 		knockback = kb * 2 # TODO cambiar dirección de la animación
-		playerAnimationTree.travel("damaged")
+		anim.travel("damaged")
 		emit_signal("damaged")
 		health -= damage
 		print("Player health: " + str(health))

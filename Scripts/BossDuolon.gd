@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var health = 600
+var health = 100
 
 export (PackedScene) var attackEffect 
 var flashI = 0
@@ -10,7 +10,7 @@ var nextAttack
 var rng = RandomNumberGenerator.new()
 onready var attackEffectPoint = $Sprite/AttackEffectPoint
 onready var Player = get_node("/root/Main/World/Player")
-onready var animationTree = $AnimationTree.get("parameters/playback")
+onready var anim = $AnimationTree.get("parameters/playback")
 onready var currentAnimation
 
 
@@ -19,12 +19,13 @@ func _ready():
 
 
 func _process(delta):
-	if health <= 0:
-		queue_free()
-
 	_flash_decay()
 	
-	var currentAnimation = animationTree.get_current_node()	
+	if health <= 0:
+		anim.travel('dying')
+		return
+	
+	var currentAnimation = anim.get_current_node()	
 	match currentAnimation:
 		'dying':
 			pass
@@ -50,9 +51,6 @@ func _process(delta):
 			pass
 		'stunned':
 			pass
-	# ANY state
-	if health <= 0:
-		pass
 
 	
 func set_next_attack_position(): # se dispara desde animationPlayer teleportOut+explosion
@@ -96,5 +94,5 @@ func _on_IdleTimer_timeout():
 	actions.shuffle()
 	lastAttack = nextAttack
 	nextAttack = actions[0]
-	animationTree.travel(nextAttack)
+	anim.travel(nextAttack)
 	
