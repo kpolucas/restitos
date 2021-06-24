@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var health = 100
+var health = 300
 
 export (PackedScene) var attackEffect 
 var flashI = 0
@@ -19,13 +19,14 @@ func _ready():
 
 
 func _process(delta):
+	print($IdleTimer.time_left)
 	_flash_decay()
 	
 	if health <= 0:
 		anim.travel('dying')
 		return
 	
-	var currentAnimation = anim.get_current_node()	
+	var currentAnimation = anim.get_current_node()
 	match currentAnimation:
 		'dying':
 			pass
@@ -33,8 +34,8 @@ func _process(delta):
 			pass
 		'idle':
 			if $IdleTimer.is_stopped():
+				$IdleTimer.start(5) # mejorable
 				#$IdleTimer.start(rng.randi_range(2,4))
-				$IdleTimer.start(rng.randi_range(1,1))
 		'teleportOut':
 			pass
 		'teleportIn':
