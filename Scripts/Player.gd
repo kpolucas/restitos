@@ -8,7 +8,7 @@ var facing_right = true
 # Health
 var health = 100
 # Movement
-export var BACKDASH = Vector2(-1500,-300) 
+export var DASH = 1500 
 export var GRAVITY = 60
 export var MAXFALLSPEED = 750
 export var MAXSPEED = 180
@@ -37,45 +37,50 @@ func _physics_process(delta):
 
 
 func _movement():
-	motion.y += GRAVITY
-	if motion.y > MAXFALLSPEED:
-		motion.y = MAXFALLSPEED
+#	motion.y += GRAVITY
+#	if motion.y > MAXFALLSPEED:
+#		motion.y = MAXFALLSPEED
 	
-	knockback = lerp(knockback,0,knockbackFriction)
-	motion.x -= knockback
+#	knockback = lerp(knockback,0,knockbackFriction)
+#	motion.x -= knockback
 
 # 	maybe
 #	if anim.get_current_node() == "damaged":
 #		return
-
-	# THE HORROR!  Refactor ALL!
-	if Input.is_action_pressed("right") && _can_move():
-		motion.x += ACCEL
-		facing_right = true
-		if is_on_floor():
-			anim.travel("walking")
-	elif Input.is_action_pressed("left") && _can_move():
-		motion.x -= ACCEL
-		facing_right = false
-		if is_on_floor():
-			anim.travel("walking")
-	else:
-		motion.x = lerp(motion.x,0,STOPFRICTION) # smooth de-acceleration
-	motion.x = clamp(motion.x,-MAXSPEED,MAXSPEED) # cap on the maxspeed
-
-	if abs(motion.x) < 10 && is_on_floor():
-		anim.travel("idle")
-
-	if Input.is_action_just_pressed("jump") && is_on_floor():
-		motion.y = -JUMPFORCE
-	if Input.is_action_just_released("jump") && motion.y < 0:
-		motion.y = 0
 		
-	if Input.is_action_just_pressed("backdash") && is_on_floor():
-		motion.x = BACKDASH.x if facing_right else -BACKDASH.x
-		motion.y = BACKDASH.y
-		anim.travel("backdash")
-			
+	# THE HORROR!  Refactor ALL!
+	###############################
+#	if Input.is_action_pressed("right") && _can_move():
+#		motion.x += ACCEL
+#		facing_right = true
+#		if is_on_floor():
+#			anim.travel("walking")
+#	elif Input.is_action_pressed("left") && _can_move():
+#		motion.x -= ACCEL
+#		facing_right = false
+#		if is_on_floor():
+#			anim.travel("walking")
+#	else:
+#		motion.x = lerp(motion.x,0,STOPFRICTION) # smooth de-acceleration
+#	motion.x = clamp(motion.x,-MAXSPEED,MAXSPEED) # cap on the maxspeed
+#
+#	if abs(motion.x) < 10 && is_on_floor():
+#		anim.travel("idle")
+#
+#	if Input.is_action_just_pressed("jump") && is_on_floor():
+#		motion.y = -JUMPFORCE
+#	if Input.is_action_just_released("jump") && motion.y < 0:
+#		motion.y = 0
+###############################
+	if Input.is_action_pressed("right"):
+		motion.x = _walk(motion.x)
+	elif Input.is_action_pressed("left"):
+		motion.x = -(_walk(motion.x))
+
+	if Input.is_action_just_pressed("dash"):
+		motion.x = _dash(motion.x)
+
+	motion.x = lerp(motion.x,0,STOPFRICTION) # smooth de-acceleration
 	motion = move_and_slide(motion,Vector2.UP)
 
 
@@ -104,12 +109,29 @@ func _block():
 	if Input.is_action_just_pressed("block"):
 		anim.travel("block")
 		
-
-func _can_move(): 
-	if (anim.get_current_node() == "idle" || anim.get_current_node() == "walking"):
-		return true
+		
+func _dash(dashMotion):
+	if facing_right:
+		dashMotion = DASH
+		anim.travel("dash")
 	else:
-		return false
+		dashMotion = -DASH
+		anim.travel("dash")
+
+	return dashMotion
+	
+	
+func _walk(walkMotion):
+	walkMotion = walkMotion + 1
+	print(walkMotion)
+	return walkMotion
+
+
+#func _can_move(): 
+#	if (anim.get_current_node() == "idle" || anim.get_current_node() == "walking"):
+#		return true
+#	else:
+#		return false
 
 
 func enemy_hit_player(damage,kb,attackIsParryable):

@@ -1,11 +1,11 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Player/VanessaSpriteSheet.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/PlayerAttackCollisionShape.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7.25031, 7 )
+extents = Vector2( 8.72316, 7 )
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 10.9197
@@ -47,7 +47,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -40.786, -47.4972 ) ]
+"values": [ Vector2( -39.0182, -44.1384 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -86,7 +86,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -31.348, -41.2087 ) ]
+"values": [ Vector2( -29.9338, -36.259 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -137,13 +137,14 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 90, 91, 92, 93 ]
+"values": [ 90, 91, 92, 93, 94 ]
 }
 
 [sub_resource type="Animation" id=7]
+length = 0.8
 tracks/0/type = "value"
 tracks/0/path = NodePath("PlayerSprite:frame")
 tracks/0/interp = 1
@@ -199,6 +200,22 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 100, 101, 102, 103, 104, 105, 106, 107, 108, 109 ]
+}
+
+[sub_resource type="Animation" id=44]
+resource_name = "dash"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 65, 66, 67, 68, 69 ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -267,6 +284,9 @@ animation = "block"
 [sub_resource type="AnimationNodeAnimation" id=18]
 animation = "damaged"
 
+[sub_resource type="AnimationNodeAnimation" id=45]
+animation = "dash"
+
 [sub_resource type="AnimationNodeAnimation" id=19]
 animation = "idle"
 
@@ -320,6 +340,7 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=37]
 switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=38]
 
@@ -327,9 +348,17 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=40]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=43]
+[sub_resource type="AnimationNodeStateMachineTransition" id=41]
 
-[sub_resource type="AnimationNodeStateMachine" id=41]
+[sub_resource type="AnimationNodeStateMachineTransition" id=46]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=47]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=48]
+
+[sub_resource type="AnimationNodeStateMachine" id=42]
 states/attack123-1/node = SubResource( 13 )
 states/attack123-1/position = Vector2( 450, 303 )
 states/attack123-2/node = SubResource( 14 )
@@ -337,29 +366,31 @@ states/attack123-2/position = Vector2( 450, 376 )
 states/attack123-3/node = SubResource( 15 )
 states/attack123-3/position = Vector2( 452, 452 )
 states/backdash/node = SubResource( 16 )
-states/backdash/position = Vector2( 456, 94 )
+states/backdash/position = Vector2( 420, 22 )
 states/block/node = SubResource( 17 )
 states/block/position = Vector2( 240, 94 )
 states/damaged/node = SubResource( 18 )
 states/damaged/position = Vector2( 681, 165 )
+states/dash/node = SubResource( 45 )
+states/dash/position = Vector2( 486, 108.179 )
 states/idle/node = SubResource( 19 )
 states/idle/position = Vector2( 285, 217 )
 states/parry/node = SubResource( 20 )
 states/parry/position = Vector2( 74, 94 )
 states/walking/node = SubResource( 21 )
 states/walking/position = Vector2( 144, 303 )
-transitions = [ "idle", "block", SubResource( 22 ), "idle", "backdash", SubResource( 23 ), "idle", "attack123-1", SubResource( 24 ), "block", "parry", SubResource( 25 ), "backdash", "damaged", SubResource( 26 ), "idle", "damaged", SubResource( 27 ), "attack123-1", "damaged", SubResource( 28 ), "damaged", "idle", SubResource( 29 ), "backdash", "idle", SubResource( 30 ), "attack123-1", "idle", SubResource( 31 ), "attack123-1", "attack123-2", SubResource( 32 ), "attack123-2", "attack123-3", SubResource( 33 ), "attack123-3", "idle", SubResource( 34 ), "attack123-2", "idle", SubResource( 35 ), "parry", "idle", SubResource( 36 ), "block", "idle", SubResource( 37 ), "walking", "idle", SubResource( 38 ), "idle", "walking", SubResource( 39 ), "walking", "attack123-1", SubResource( 40 ), "walking", "block", SubResource( 43 ) ]
+transitions = [ "idle", "block", SubResource( 22 ), "idle", "backdash", SubResource( 23 ), "idle", "attack123-1", SubResource( 24 ), "block", "parry", SubResource( 25 ), "backdash", "damaged", SubResource( 26 ), "idle", "damaged", SubResource( 27 ), "attack123-1", "damaged", SubResource( 28 ), "damaged", "idle", SubResource( 29 ), "backdash", "idle", SubResource( 30 ), "attack123-1", "idle", SubResource( 31 ), "attack123-1", "attack123-2", SubResource( 32 ), "attack123-2", "attack123-3", SubResource( 33 ), "attack123-3", "idle", SubResource( 34 ), "attack123-2", "idle", SubResource( 35 ), "parry", "idle", SubResource( 36 ), "block", "idle", SubResource( 37 ), "walking", "idle", SubResource( 38 ), "idle", "walking", SubResource( 39 ), "walking", "attack123-1", SubResource( 40 ), "walking", "block", SubResource( 41 ), "idle", "dash", SubResource( 46 ), "dash", "idle", SubResource( 47 ), "dash", "damaged", SubResource( 48 ) ]
 start_node = "idle"
-graph_offset = Vector2( 0, 202.415 )
+graph_offset = Vector2( 0, -37.8212 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=42]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=43]
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource( 1 )
-BACKDASH = Vector2( -1000, -280 )
 JUMPFORCE = 800
+parry = true
 
 [node name="PlayerSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -372,7 +403,7 @@ collision_layer = 8
 collision_mask = 4
 
 [node name="PlayerAttackCollisionShape" type="CollisionShape2D" parent="PlayerSprite/Area2D"]
-position = Vector2( -40.786, -47.4972 )
+position = Vector2( -39.0182, -44.1384 )
 shape = SubResource( 1 )
 disabled = true
 script = ExtResource( 3 )
@@ -389,14 +420,15 @@ anims/backdash = SubResource( 6 )
 anims/block = SubResource( 7 )
 anims/crouch = SubResource( 8 )
 anims/damaged = SubResource( 9 )
+anims/dash = SubResource( 44 )
 anims/idle = SubResource( 10 )
 anims/parry = SubResource( 11 )
 anims/walking = SubResource( 12 )
 
 [node name="PlayerAnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 41 )
+tree_root = SubResource( 42 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 42 )
+parameters/playback = SubResource( 43 )
 [connection signal="body_entered" from="PlayerSprite/Area2D" to="PlayerSprite/Area2D/PlayerAttackCollisionShape" method="_on_Area2D_body_entered"]
 [connection signal="animation_started" from="AnimationPlayer" to="PlayerSprite/Area2D/PlayerAttackCollisionShape" method="_on_AnimationPlayer_animation_started"]

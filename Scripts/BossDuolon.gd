@@ -19,7 +19,6 @@ func _ready():
 
 
 func _process(delta):
-	print($IdleTimer.time_left)
 	_flash_decay()
 	
 	if health <= 0:
