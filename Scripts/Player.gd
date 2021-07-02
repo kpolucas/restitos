@@ -15,6 +15,7 @@ export var MAXSPEED = 180
 export var JUMPFORCE = 850
 export var ACCEL = 65
 export var STOPFRICTION = 0.25
+var canMoveAnims = ["walking","idle"]
 # Attack
 
 # Block
@@ -37,10 +38,6 @@ func _physics_process(delta):
 
 
 func _movement():
-#	motion.y += GRAVITY
-#	if motion.y > MAXFALLSPEED:
-#		motion.y = MAXFALLSPEED
-	
 #	knockback = lerp(knockback,0,knockbackFriction)
 #	motion.x -= knockback
 
@@ -66,25 +63,30 @@ func _movement():
 #
 #	if abs(motion.x) < 10 && is_on_floor():
 #		anim.travel("idle")
-#
-#	if Input.is_action_just_pressed("jump") && is_on_floor():
-#		motion.y = -JUMPFORCE
-#	if Input.is_action_just_released("jump") && motion.y < 0:
-#		motion.y = 0
 ###############################
-	if Input.is_action_pressed("right"):
-		motion.x = _walk(motion.x)
-	elif Input.is_action_pressed("left"):
-		motion.x = -(_walk(motion.x))
-
-	if Input.is_action_just_pressed("dash"):
-		motion.x = _dash(motion.x)
-
+	if anim.get_current_node() in canMoveAnims:
+		if Input.is_action_pressed("right") || Input.is_action_pressed("left"):
+			motion.x = _walk(motion.x)
+			
+		if Input.is_action_just_pressed("dash"):
+			motion.x = _dash(motion.x)
+			
+		if Input.is_action_pressed("jump") || Input.is_action_just_released("jump"):
+			motion.y = _jump(motion.y)
+			
+	motion.y += GRAVITY
+	if motion.y > MAXFALLSPEED:
+		motion.y = MAXFALLSPEED
 	motion.x = lerp(motion.x,0,STOPFRICTION) # smooth de-acceleration
 	motion = move_and_slide(motion,Vector2.UP)
 
 
 func _direction():
+	if anim.get_current_node() in canMoveAnims:
+		if Input.is_action_pressed("right"):
+			facing_right = true
+		if Input.is_action_pressed("left"):
+			facing_right = false
 	$PlayerSprite.scale.x = -1 if facing_right else 1
 	$PlayerSprite.position.x = 16 if facing_right else -16 # Centro el placeholder
 
@@ -117,21 +119,23 @@ func _dash(dashMotion):
 	else:
 		dashMotion = -DASH
 		anim.travel("dash")
-
 	return dashMotion
 	
 	
 func _walk(walkMotion):
-	walkMotion = walkMotion + 1
-	print(walkMotion)
+	if Input.is_action_pressed("right"):
+		walkMotion += ACCEL
+	if Input.is_action_pressed("left"):
+		walkMotion -= ACCEL
 	return walkMotion
+	
 
-
-#func _can_move(): 
-#	if (anim.get_current_node() == "idle" || anim.get_current_node() == "walking"):
-#		return true
-#	else:
-#		return false
+func _jump(jumpMotion):
+	if Input.is_action_just_pressed("jump") && is_on_floor():
+		jumpMotion = -JUMPFORCE
+	if Input.is_action_just_released("jump") && motion.y < 0:
+		jumpMotion = 0
+	return jumpMotion
 
 
 func enemy_hit_player(damage,kb,attackIsParryable):
