@@ -708,7 +708,7 @@ states/teleportout/position = Vector2( 144, 295 )
 transitions = [ "gancho", "idle", SubResource( 26 ), "kick", "idle", SubResource( 27 ), "sweep", "idle", SubResource( 28 ), "mirror", "idle", SubResource( 29 ), "explosion", "teleportin", SubResource( 30 ), "intro", "idle", SubResource( 31 ), "idle", "teleportout", SubResource( 32 ), "teleportout", "teleportin", SubResource( 33 ), "teleportin", "kick", SubResource( 34 ), "kick", "stunned", SubResource( 35 ), "gancho", "stunned", SubResource( 36 ), "teleportin", "mirror", SubResource( 37 ), "teleportin", "sweep", SubResource( 38 ), "teleportin", "gancho", SubResource( 39 ), "teleportin", "explosion", SubResource( 40 ), "idle", "dying", SubResource( 41 ) ]
 start_node = "intro"
 end_node = "dying"
-graph_offset = Vector2( 0, -14.619 )
+graph_offset = Vector2( 0, -45.659 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=43]
 
@@ -727,6 +727,7 @@ material = SubResource( 2 )
 texture = ExtResource( 1 )
 vframes = 10
 hframes = 15
+frame = 2
 
 [node name="AttackEffectPoint" type="Position2D" parent="Sprite"]
 position = Vector2( -91.2168, -68.2358 )

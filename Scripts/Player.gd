@@ -15,7 +15,7 @@ export var MAXSPEED = 180
 export var JUMPFORCE = 850
 export var ACCEL = 65
 export var STOPFRICTION = 0.25
-var canMoveAnims = ["walking","idle"]
+var canMoveAnims = ["walking","idle","jumpup","jumpdown","landing"]
 # Attack
 
 # Block
@@ -44,36 +44,18 @@ func _movement():
 # 	maybe
 #	if anim.get_current_node() == "damaged":
 #		return
-		
-	# THE HORROR!  Refactor ALL!
-	###############################
-#	if Input.is_action_pressed("right") && _can_move():
-#		motion.x += ACCEL
-#		facing_right = true
-#		if is_on_floor():
-#			anim.travel("walking")
-#	elif Input.is_action_pressed("left") && _can_move():
-#		motion.x -= ACCEL
-#		facing_right = false
-#		if is_on_floor():
-#			anim.travel("walking")
-#	else:
-#		motion.x = lerp(motion.x,0,STOPFRICTION) # smooth de-acceleration
-#	motion.x = clamp(motion.x,-MAXSPEED,MAXSPEED) # cap on the maxspeed
-#
-#	if abs(motion.x) < 10 && is_on_floor():
-#		anim.travel("idle")
-###############################
 	if anim.get_current_node() in canMoveAnims:
 		if Input.is_action_pressed("right") || Input.is_action_pressed("left"):
 			motion.x = _walk(motion.x)
-			
-		if Input.is_action_just_pressed("dash"):
-			motion.x = _dash(motion.x)
-			
+		
 		if Input.is_action_pressed("jump") || Input.is_action_just_released("jump"):
 			motion.y = _jump(motion.y)
 			
+		_anim_motion(motion.x,motion.y)	
+			
+		if Input.is_action_just_pressed("dash") && is_on_floor():
+			motion.x = _dash(motion.x)
+		
 	motion.y += GRAVITY
 	if motion.y > MAXFALLSPEED:
 		motion.y = MAXFALLSPEED
@@ -137,6 +119,21 @@ func _jump(jumpMotion):
 		jumpMotion = 0
 	return jumpMotion
 
+
+func _anim_motion(animMotionX,animMotionY):
+	if is_on_floor():
+		if abs(animMotionX) > 10:
+			anim.travel("walking")
+		else:
+			anim.travel("idle")
+	
+	if !is_on_floor():
+		if animMotionY < -5:
+			anim.travel("jumpup")
+		if animMotionY > 5:
+			anim.travel("jumpdown")
+		
+		
 
 func enemy_hit_player(damage,kb,attackIsParryable):
 	# ver si se puede hacer de una manera menos horrible
