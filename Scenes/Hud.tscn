@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/Hud/lifebar_fill.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Hud/lifebar_under.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Hud.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/Hud/lifebar_over.png" type="Texture" id=4]
+
+[node name="Hud" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.594604
+margin_top = -3.02615
+margin_right = -0.594604
+margin_bottom = -3.02615
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Controls" type="Label" parent="."]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -65.0
+margin_top = -58.0
+margin_bottom = 58.0
+text = "A-Left
+D-Right
+W-Jump
+F-Punch
+G-Block
+H-Dash
+"
+
+[node name="HealthBar" type="HBoxContainer" parent="."]
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 135.0
+margin_bottom = 39.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="HealthBar"]
+margin_right = 105.0
+margin_bottom = 9.0
+value = 100.0
+texture_under = ExtResource( 2 )
+texture_over = ExtResource( 4 )
+texture_progress = ExtResource( 1 )

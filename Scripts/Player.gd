@@ -148,7 +148,6 @@ func enemy_hit_player(damage,kb,attackIsParryable):
 			
 	else:
 		knockback = kb * 2 # TODO cambiar dirección de la animación
+		health -= damage
 		anim.travel("damaged")
 		emit_signal("damaged")
-		health -= damage
-		print("Player health: " + str(health))

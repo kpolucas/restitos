@@ -226,6 +226,19 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=8]
+length = 6.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.8, 1.2, 1.6, 2, 2.4, 2.8, 3.2, 3.3, 3.7, 4.1, 4.6, 4.9, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 150, 151, 152, 153, 154, 155, 156, 157, 156, 157, 156, 157, 158, 159, 160, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168 ]
+}
 
 [sub_resource type="Animation" id=9]
 length = 1.9
@@ -725,9 +738,9 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 2 )
 texture = ExtResource( 1 )
-vframes = 10
+vframes = 12
 hframes = 15
-frame = 2
+frame = 6
 
 [node name="AttackEffectPoint" type="Position2D" parent="Sprite"]
 position = Vector2( -91.2168, -68.2358 )

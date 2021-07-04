@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Deadly Disco.ogg-c778e26f587dbcb335a1b35b01179c9b.oggstr"
+
+[deps]
+
+source_file="res://Audio/Deadly Disco.ogg"
+dest_files=[ "res://.import/Deadly Disco.ogg-c778e26f587dbcb335a1b35b01179c9b.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var health = 300
+var health = 1000
 
 export (PackedScene) var attackEffect 
 var flashI = 0
@@ -8,6 +8,8 @@ var actions = ["gancho","kick","sweep","mirror","explosion"]
 var lastAttack
 var nextAttack
 var rng = RandomNumberGenerator.new()
+signal damaged
+
 onready var attackEffectPoint = $Sprite/AttackEffectPoint
 onready var Player = get_node("/root/Main/World/Player")
 onready var anim = $AnimationTree.get("parameters/playback")
@@ -33,8 +35,8 @@ func _process(delta):
 			pass
 		'idle':
 			if $IdleTimer.is_stopped():
-				$IdleTimer.start(5) # mejorable
-				#$IdleTimer.start(rng.randi_range(2,4))
+				#$IdleTimer.start(5) # mejorable
+				$IdleTimer.start(rng.randi_range(1,4))
 		'teleportOut':
 			pass
 		'teleportIn':
@@ -87,7 +89,7 @@ func player_hit_enemy(damage):
 	health -= damage
 	_flash_start()
 	# $DamageParticles.emitting = true # TODO
-	print("Enemy health: " + str(health))
+	emit_signal("damaged")
 
 
 func _on_IdleTimer_timeout():
