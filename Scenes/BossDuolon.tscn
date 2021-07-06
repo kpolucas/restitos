@@ -7,7 +7,7 @@
 [ext_resource path="res://Scripts/BossAttackCollisionShape.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 17.8535, 56.2608 )
+extents = Vector2( 17.8535, 52.9142 )
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 4 )
@@ -732,7 +732,7 @@ script = ExtResource( 2 )
 attackEffect = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.353546, 1.41421 )
+position = Vector2( -0.353546, 0.16421 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -740,6 +740,7 @@ material = SubResource( 2 )
 texture = ExtResource( 1 )
 vframes = 12
 hframes = 15
+frame = 5
 
 [node name="AttackEffectPoint" type="Position2D" parent="Sprite"]
 position = Vector2( -91.2168, -68.2358 )
