@@ -15,21 +15,18 @@ extents = Vector2( 219.382, 10 )
 
 [node name="Main" type="Node"]
 
-[node name="Hud" parent="." instance=ExtResource( 3 )]
-
 [node name="World" type="Node2D" parent="."]
 
 [node name="Limits" type="StaticBody2D" parent="World"]
 position = Vector2( 320.488, 393.063 )
 collision_mask = 0
 
-[node name="PisoSprite" type="Sprite" parent="World/Limits"]
-position = Vector2( 2, -16 )
-texture = ExtResource( 1 )
-
 [node name="Piso" type="CollisionShape2D" parent="World/Limits"]
-position = Vector2( 2, -16 )
+position = Vector2( -2.20447, -78.2264 )
 shape = SubResource( 1 )
+
+[node name="PisoSprite" type="Sprite" parent="World/Limits/Piso"]
+texture = ExtResource( 1 )
 
 [node name="LimitRight" type="CollisionShape2D" parent="World/Limits"]
 position = Vector2( 302, -256 )
@@ -42,20 +39,21 @@ rotation = 1.5708
 shape = SubResource( 2 )
 
 [node name="BossDuolon" parent="World" instance=ExtResource( 4 )]
-position = Vector2( 544.657, 295.356 )
+position = Vector2( 541.971, 229.071 )
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
-position = Vector2( 124.744, 293.038 )
+position = Vector2( 122.221, 214.835 )
 
 [node name="Effects" type="Node" parent="World"]
 
 [node name="Slowmotion" type="Node" parent="World/Effects"]
 script = ExtResource( 5 )
 
+[node name="Hud" parent="." instance=ExtResource( 3 )]
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-autoplay = true
 [connection signal="damaged" from="World/BossDuolon" to="Hud" method="_on_BossDuolon_damaged"]
-[connection signal="damaged" from="World/Player" to="World/Effects/Slowmotion" method="_on_Player_damaged"]
 [connection signal="damaged" from="World/Player" to="Hud" method="_on_Player_damaged"]
+[connection signal="damaged" from="World/Player" to="World/Effects/Slowmotion" method="_on_Player_damaged"]
 [connection signal="parried" from="World/Player" to="World/Effects/Slowmotion" method="_on_Player_parried"]

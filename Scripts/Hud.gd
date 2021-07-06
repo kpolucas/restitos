@@ -8,4 +8,4 @@ func _on_Player_damaged():
 
 
 func _on_BossDuolon_damaged():
-	pass
+	$HealthBarBoss/TextureProgress.value = bossRef.health
