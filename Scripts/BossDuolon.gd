@@ -1,10 +1,11 @@
 extends KinematicBody2D
 
-var health = 1000
+var health = 500
 
 export (PackedScene) var attackEffect 
 var flashI = 0
 var actions = ["gancho","kick","sweep","mirror","explosion"]
+#var actions = ["mirror"]
 var lastAttack
 var nextAttack
 var rng = RandomNumberGenerator.new()

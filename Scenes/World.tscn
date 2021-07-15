@@ -109,7 +109,7 @@ extents = Vector2( 219.382, 10 )
 [node name="Background" type="AnimatedSprite" parent="World"]
 position = Vector2( 308.051, 176.389 )
 frames = SubResource( 21 )
-frame = 13
+frame = 9
 playing = true
 
 [node name="Limits" type="StaticBody2D" parent="World"]

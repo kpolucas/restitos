@@ -14,7 +14,7 @@ shader = ExtResource( 4 )
 shader_param/flashIntensity = 0.1
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 75.6748, 55.3473 )
+extents = Vector2( 31.4651, 8.8262 )
 
 [sub_resource type="Animation" id=4]
 length = 1.4
@@ -740,7 +740,7 @@ material = SubResource( 2 )
 texture = ExtResource( 1 )
 vframes = 12
 hframes = 15
-frame = 5
+frame = 162
 
 [node name="AttackEffectPoint" type="Position2D" parent="Sprite"]
 position = Vector2( -91.2168, -68.2358 )
@@ -751,6 +751,8 @@ collision_layer = 16
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Area2D"]
+position = Vector2( -58.9291, -42.6535 )
+rotation = 0.69115
 shape = SubResource( 3 )
 disabled = true
 script = ExtResource( 5 )
